@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        for(var i = 0; i < 5; i++){
+            if(i===3){              //반복문 속에 조건문이 들어갈수 도, 조건문 속에 반복문이 들어갈수 도 있다.
+                break;              // break는 발동 즉시 이후 명령 취소 후 종료
+            }
+            document.write('hi'+i+'<br>')
+        }
+    </script>
+    <script>
+            for(var i = 0; i < 5; i++){
+                if(i===3){              //반복문 속에 조건문이 들어갈수 도, 조건문 속에 반복문이 들어갈수 도 있다.
+                    continue;           // continue는 발동 즉시 이후 명령 취소 후 다시 조건 실행  
+                }
+                document.write('hello'+i+'<br>')
+            }
+    </script>
+</body>
+</html>

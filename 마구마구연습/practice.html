@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css.css">
+</head>
+<body>
+    <h1>hi</h1>
+
+    <script>
+        function Handler(self) {
+            var target = document.querySelector('body');
+            if (self.value === 'good_night')
+                 {
+                 target.style.backgroundColor = 'black';
+                 target.style.color = 'white';
+                 self.value = 'good_morning';
+                 } 
+                 else 
+                 {
+                 target.style.backgroundColor = 'white';
+                 target.style.color = 'black';
+                 self.value = 'good_night';
+                 }
+        }
+    </script>
+<input type="button" value="good_night" onclick="Handler(this);">
+
+</body>
+</html>

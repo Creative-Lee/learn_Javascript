@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>function_return</h1>
+    <script>
+        function get1(){
+            return '도현';
+        }
+        // 함수에서 return을 만나면 해당하는 값을 함수 상위트리로 반환 해당 함수 종료
+        function get2(){
+            return '짱';
+        }
+        alert(get1());  // alert(get1()); = alert('도현') ---> 위의 첫번째 함수 get1 에서 return으로 '도현' 을 반환
+        alert(get2());  // alert(get2()); = alert('짱')   ---> 위의 두번째 함수 get2 에서 return으로 '짱' 을 반환
+    </script>
+</body>
+</html>

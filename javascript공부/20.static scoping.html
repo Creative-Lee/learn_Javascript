@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var i = 5;                      // var i = 5 는 전역변수
+ 
+        function a(){
+            var i = 10;                 // var i = 10 은 지역변수 
+            b();                        // b 함수가 호출된다.
+        }
+        
+        function b(){
+            document.write(i);          // b 함수 안에 i 라는 지역변수 값이 없으므로 i 전역변수에 접근함.  값은 5
+        }                               // b 함수가 선언 된 시점의 전역변수를 사용함. (호출 된 시점이 아니다.)
+        
+        a();                            // this is fucking 정적 유효범위.   - 어디에서 누가 b 함수를 사용하던 같은 i 값을 가질거임.
+    </script>
+</body>
+</html>

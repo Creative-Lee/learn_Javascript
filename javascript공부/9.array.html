@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var goHard = [
+            'smart phone' , 'computer' , 'laptop'               //  배열 - array   배열속 각각의 데이터 =    원소 - element 
+        ]                                                       //  배열 element 는 순서대로  0 부터 시작한 index 값을 가진다.
+        document.write(goHard+'<br>');
+        document.write(goHard[0]+'<br>');                       //  배열의 색인 - index  -- ex) goHard[0] === 'smart phone'
+        document.write(goHard[1]+'<br>');               
+        document.write(goHard[2]+'<br>');
+
+    </script>
+    <h1>array in function</h1>
+    <script>
+        function get_members(){
+            return ['egoing', 'k8805', 'sorialgi'];
+        }
+        var members = get_members();                            // function get_members(); == ['egoing', 'k8805', 'sorialgi']
+        document.write(members[0]+'<br>');                      // var members = get_members();
+        document.write(members[1]+'<br>');                      //             = ['egoing', 'k8805', 'sorialgi'] 
+        document.write(members[2]+'<br>');
+    </script>
+</body>
+</html>

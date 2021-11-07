@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+    <script>
+        var name_Age = {
+            'list' : {'도현' : 26 , '쩡이' : 24 , '동훈' : 26},       //객체 안에 또 객체를 넣을 수 있음.   --> list 라는 key값의 value로 {} 라는 객체를 넣어줌
+            'show' : function (){                                    //객체 안에 함수를 넣을 수 있음.      --> show 라는 key값의 value로 function(){} 라는 함수를 넣어줌
+                alert('hello world');
+            }
+        }
+        alert(name_Age['list']['쩡이']);                              // name_Age라는 객체의 key값 = list
+                                                                      // list라는 key 값의 value = {'도현' : 26 , '쩡이' : 24 , '동훈' : 26} 
+                                                                      // 이 객체의 key값 = '쩡이'
+                                                                      // 이 '쩡이'라는 key값에 해당하는 value 값 호출
+        
+        name_Age['show']();                                           // name_Age라는 객체의 key값 = show
+                                                                      // show라는 key 값의 value =  function (){alert('hello world');}
+                                                                      // show의 value 함수 호출 () 
+    </script>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var li = ['a', 'b', 'c', 'd', 'e'];
+        li.push('f');                        //  li = ['a', 'b', 'c', 'd', 'e' ,'f']
+        // * push는 배열의 끝 꼬리에 추가 
+
+        li = li.concat(['g','h']);           //  li = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']   
+        // * concat은 배열을 추가 - 다수의 element 추가시 사용
+        //   concat은 =을 사용하여 추가한 값을 변수에 다시 대입 해줘야함
+
+        li.unshift('god');                   //  li = ['god', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+        // * unshift는 배열의 시작 머리에 추가 , 나머지 element의 index는 자동으로 +1
+
+        li.splice(0,1,'god is dead')         //  li = ['god is dead', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+        // * splice는 (선택할 element의 index, 선택한 element로 부터 삭제할 element의 개수, 추가할 element )
+        // * splice의 2번째 역할은 삭제된 요소들을 return 해주는것이다. 
+        //   ex) li.splice(0,1,'god is dead') 를 실행함으로 인해 삭제된 element는 index 0번인 'god' 으로부터 1개 이므로
+        //       ['god'] 을 return 한다.      
+    
+        li.shift();                          //  li = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']                
+        // * shift()는 배열의 시작 머리의 있는 element를 삭제한다.
+
+        li.pop();                            //  li = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+        // * pop()은 배열의 끝 꼬리에 있는 element를 삭제한다.
+        
+        
+        document.write(li);         
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        MYAPP = {}
+        MYAPP.calculator = {
+            'left' : null,
+            'right' : null
+        }
+        MYAPP.coordinate = {                            //하나의 객체를 전역변수로 만들어 객체의 속성으로 변수 관리.
+            'left' : null,
+            'right' : null
+        }
+ 
+        MYAPP.calculator.left = 10;
+        MYAPP.calculator.right = 20;
+        function sum(){
+            return MYAPP.calculator.left + MYAPP.calculator.right;
+        }
+        document.write(sum());
+    </script>
+    
+
+    <script>
+       (function(){
+        MYAPP = {}
+        MYAPP.calculator = {
+            'left' : null,
+            'right' : null
+        }
+        MYAPP.coordinate = {                                     //익명함수를 이용 전역변수를 한개도 선언 안할 수 있음. 
+            'left' : null,                                       //로직을 모듈화 하는 방법중 하나란다.
+            'right' : null
+        }
+ 
+        MYAPP.calculator.left = 10;
+        MYAPP.calculator.right = 20;
+        function sum(){
+            return MYAPP.calculator.left + MYAPP.calculator.right;
+        }
+        document.write(sum());
+       }()) 
+    </script>
+</body>
+</html>

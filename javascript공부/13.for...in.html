@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+    <script>
+        var name_Age = {
+            '도현' : 26 , '쩡이' : 24 , '동훈' : 26      //도현,쩡이,동훈 = key    26,24,26 = value
+        }
+        for(var key in name_Age){                                                       
+            document.write('<li>'+"이름: "+key+" 나이: "+name_Age[key]+'</li>'+'<br>')
+        }
+        //for in 문  --> for(var 변수 in object명 or array명)  
+        //  --> object명 or array명 의 key값을 변수에 담아 반복문을 실행한다.
+        //  --> 위의 for in 문 에서는 key 라는 변수에 name_Age라는 객체의 key값을 담은것.
+    </script>
+    </ul>
+</body>
+</html>

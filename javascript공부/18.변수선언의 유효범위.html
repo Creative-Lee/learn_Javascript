@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function a (){
+            i = 0;                       // 함수 안에서의 i = 0 ; 은 함수안에 선언된 i 지역변수 가 없다면 
+        }                                // 함수 밖에서 선언된 전역변수 i를 찾아 그 값을 바꾼다.
+        for(var i = 0; i < 5; i++){     //  해당 반복문 에서 선언된 var i = 0 은 함수내부에 해당하지 않는, 즉 전역변수 이다.
+            a();                        //  그러므로 한 번의 실행횟수 마다  함수 a 에 의해 전역변수 i 의 값이 0으로 계속 초기화가 되면서
+            document.write(i);          //  해당 반복문은 무한 루프 한다.
+        }                               //  ** javascript 에서는 함수의 {} 안에서만 지역변수 선언이 가능하다.**
+    </script>
+</body>
+</html>

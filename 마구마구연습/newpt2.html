@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>object</h1>
+    <h2>Create</h2>
+    <script>            
+        const vvs = {
+            "first":"Do",
+            "second":"DDo"    
+        };
+        document.write(vvs.first+"<br>");
+        document.write(vvs.second+"<br>"); 
+        vvs.third = "DDDo";
+        document.write(vvs.third+"<br>");
+        vvs["fourth"] = "DDDDo";
+        document.write(vvs["fourth"]+"<br>");
+    </script>
+
+    <h2>Iterrate</h2>
+    <script>
+    for(key in vvs){
+    document.write(key+': '+vvs[key]+'<br>');
+    }   
+    </script>
+    
+    <h2> Property & Method</h2>
+    <script>
+        vvs.showAll = function(){
+            for(const key in this){
+                if(key!=="showAll"){
+                document.write(key+': '+this[key]+'<br>')
+                };
+            }
+        }   
+        
+        vvs.showAll();
+            
+    </script>
+</body>
+</html>

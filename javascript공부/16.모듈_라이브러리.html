@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="colors.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+        //프로그램을 구성하는 작은 부품 = 로직
+        // 자주 사용되는 로직을 재사용하기 편리하도록 잘 정리한 일련의 코드들의 집합 = 라이브러리
+        // 좋은 라이브러리를 선택하고 사용하는것은 프로그래밍의 핵심  
+    </script>
+    <title>Document</title>
+</head>
+<body>
+    <ul id="list">
+     <li>empty</li>
+     <li>empty</li>
+     <li>empty</li>
+    </ul>
+    <input type="button" value="excute" id="excuteBTN">
+    <script>
+        $('#excuteBTN').click(function(){
+            $('#list li').text('full');
+        })
+    </script>
+</body>
+</html>

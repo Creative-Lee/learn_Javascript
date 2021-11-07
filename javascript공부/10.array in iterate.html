@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>array in function</h1>
+    <script>
+function zero(){
+    console.log(
+        zero.length,
+        arguments.length
+    );
+}
+function one(arg1){
+    console.log(
+       one.length,
+        arguments.length
+    );
+}
+function two(arg1, arg2){
+    console.log(
+        two.length,
+        arguments.length
+    );
+}
+zero(); // zero.length 0 arguments 0 
+one('val1', 'val2');  // one.length 1 arguments 2 
+two('val1');  // two.length 2 arguments 1
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>function의 여러가지 표현방법</h1>
+    
+    <h2>1번</h2>
+    <script>
+        function hello(){                               // 기본적인 방법 
+            for(i = 0; i < 3; i++){
+                document.write('hello'+'<br>')
+            }
+        }
+        hello();
+    </script>
+
+    <h2>2번</h2>
+    <script>
+        hello = function(){                           // 함수명 좌항 = function(){ 내용 }
+                    for(i = 0; i < 3; i++){
+                    document.write('hello'+'<br>')  
+                    }
+                }
+        hello();                                       // 호출 --> 함수명();
+    </script>
+
+    <h2>3번</h2>
+    <script>
+        (function hello(){
+            for(i = 0; i < 3; i++){
+                document.write('hello'+'<br>')      // 익명함수 --  이름이 없고 바로 실행됐다. 1회성 호출을 위한 테크닉
+            }                                       
+        })
+        ();                                       // 호출 --> ();   -- 선언과 동시에 바로 호출
+    </script>
+
+    <script>
+        var hello = function(){                        
+                    for(i = 0; i < 3; i++){
+                    document.write('hello'+'<br>')          // 변수에 담는 익명함수 ?
+                    }
+                };
+        hello();                                   
+    </script>
+
+</body>
+</html>

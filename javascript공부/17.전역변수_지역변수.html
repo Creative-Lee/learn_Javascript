@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var vscope = 'global';               
+        function fscope(){            //함수 안에 vscope 지역변수 할당이 안되어 있으므로   
+            alert(vscope);            //alert(vscope)의 값으로 전역변수 global 값을 사용하게 됨
+        }                             //그러므로 함수 호출 시 전역변수 global 을 alert 한다.
+        fscope();                    
+    </script>                          
+
+    <script>
+        var vscope = 'global';               
+        function fscope(){                  
+            var vscope = 'local';    // 함수 안에 vscope 지역변수 할당이 되어있으므로         
+            alert(vscope);          // alert(vscope)의 값으로 지역변수 local 값을 사용하게 됨        
+        }                           // 그러므로 함수 호출 시 지역변수 local 을 alert 한다.
+        fscope();                          
+    </script>
+
+    
+    <script>
+        var vscope = 'global'            // 함수 밖에서의 alert(lv) 명령은 호출되지 않는다. 
+        function fscope(){               // 함수 안에서 만들어진 지역변수 lv는 지역에서만 접근 가능하기 때문.   
+            var vscope = 'local';
+            var lv = 'local variables';  // undefine 값을 alert 함        
+            alert(vscope);                  
+        }
+        alert(lv)   ;                          
+    </script>
+
+    <script>
+        var vscope = 'global';               
+        function fscope(){                  
+            var vscope = 'local';    // 함수 안에 vscope  지역변수 선언         
+                                     // 함수 밖에 vscope  전역변수 선언       
+        }                            // alert(vscope) 값은 전역변수 global 출력
+        alert(vscope);                          
+    </script>
+
+    <script>
+        var vscope = 'global';               
+        function fscope(){                  
+            vscope = 'local';        // 함수 밖에 vscope 전역변수 선언                                    값 : global        
+                                     // 함수 안에 vscope = local 은 함수 밖 전역변수의 값을 바꾼다는 의미   값 : local       
+        }                            
+        alert(vscope);                // alert(vscope) 값은 변경된 전역변수 local 출력       
+    </script>
+
+    <script>
+        var vscope = 'global';               
+        function fscope(){                  
+            var vscope = 'local';    // 함수 안에 vscope  지역변수 선언         
+            vscope = 'local';        // 함수 안에 vscope = local 은 이미 선언된 지역변수 vscope의 값을 바꾼다.
+        }                            // 전역변수 vscope의 값 global은 그대로 이므로
+        alert(vscope);               // alert(vscope) 값은 전역변수 global 출력
+                              
+    </script>
+</body>
+</html>

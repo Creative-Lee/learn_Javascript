@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>function_argument</h1>
+    <script>
+        function get_argument(arg){              // function에서  ( ) 안의 값은 매개변수_parameter 라고 부른다.  
+            return arg*100;                      // arg 값 ( 1 and 2 )에 100을 곱한값을 상위트리에 반환하고 함수 종료.
+        }
+                                                 // parameter로 전달하는 값은 인자_argument 라고 부른다.                  
+        alert(get_argument(1));                  // get_argument함수의 (arg)로 1이라는 값을 전달하겠다는 의미다.
+        alert(get_argument(2));                  // get_argument함수의 (arg)로 2이라는 값을 전달하겠다는 의미다.
+    </script>
+
+    <h1>복수 인자</h1>
+    <script>
+        function get_arguments(arg1, arg2){      // parameter 2개
+            return arg1 + arg2                   // arg1과 arg2를 더한값을 상위트리에 반환하고 함수 종료.    
+        }
+        
+        alert(get_arguments(10, 20));            // 10 = arg1  , 20 = arg2   === alert(30)
+        alert(get_arguments(20, 30));            // 20 = arg1  , 30 = arg2   === alert(50)
+    </script>
+</body>
+</html>

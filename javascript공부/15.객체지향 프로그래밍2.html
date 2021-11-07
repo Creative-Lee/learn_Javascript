@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+    <script>
+        var name_Age = {
+            'list' : {'도현' : 26 , '쩡이' : 24 , '동훈' : 26},
+            'show' : function (){
+                for(var name in this.list)
+                document.write(name+": "+this.list[name]+'<br>');
+            }
+        }
+        name_Age.show();
+    </script>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+      class Person {
+        constructor(name, age) {  //기본 값 지정 name과 age라는 fields
+          this.name = name;
+          this.age = age;          
+        }
+        get age(){
+          return this._age
+        } 
+        set age(value){
+          if(value < 0){
+            console.error("나이가 음수라니 말도 안돼!")
+          }
+          this._age = value;
+        } 
+				speak(){
+            console.log(`hello ${this.name}! you are ${this.age} years old!`)
+				}
+      }
+
+      const kim = new Person("kim" , -1);
+			kim.speak()
+
+
+    </script>
+</body>
+</html>

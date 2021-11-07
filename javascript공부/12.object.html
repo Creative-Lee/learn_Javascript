@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var name_Age = {
+            '도현' : 26 , '쩡이' : 24 , '동훈' : 26      //도현,쩡이,동훈 = key    26,24,26 = value
+        }
+
+    </script>
+
+    <script>
+        var name_Age2 = new Object();                   // 왼쪽과 같은 방법으로도 object 를 만들 수 있음.
+        name_Age2['도현'] = 26;
+        name_Age2['쩡이'] = 24;
+        name_Age2['동훈'] = 26;
+
+        document.write(name_Age2+'<br>');               // object의 key를 사용해서 value를 가져오는 법 2가지
+
+        document.write(name_Age2['도현']+'<br>');       //  object명[key]
+        document.write(name_Age2['쩡이']+'<br>');
+        document.write(name_Age2['동훈']+'<br>');
+
+        document.write(name_Age2.도현+'<br>');          //  object명.key
+        document.write(name_Age2.쩡이+'<br>');
+        document.write(name_Age2.동훈+'<br>');
+    </script>
+</body>
+</html>

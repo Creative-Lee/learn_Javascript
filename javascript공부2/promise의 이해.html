@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <!-- 
+       <script>
+        //새로운 promise가 만들어지면 익스큐터콜백함수 (리졸브 , 리젝트) 는 바로 자동실행 됩니다.
+        const promise = new Promise((resolve, reject) => {
+            console.log("뭐든지 해봅시다");
+            setTimeout(()=>{
+                // resolve("도현")
+                reject(new Error('정신 차리고 다시 쓰세요'));
+            },2000);
+        });
+
+        //사용하기  then , catch,  finally
+        promise
+        .then(value=>{  //then의 콜백함수의 파라미터는 리졸브로 전달받은 값. ===도현
+            console.log(value);
+        })
+        .catch(error =>{ // catch의 콜백함수의 파라미터는 리젝트로 전달받은 값. === Error 블라블라
+            console.log(error);
+        })
+        .finally(()=>{
+            console.log("파이널리는 무저끈 출력됩니다.")
+        })
+    </script>
+    -->
+    <!--
+    <script>
+        const fetchNumber = new Promise((resolve, reject)=>{
+            console.log("여러분 패치 넘버 프로미스가 생성됐습니다.")
+            setTimeout(()=> resolve(1) ,1000)
+        })
+
+        fetchNumber
+        .then(num => num * 2)
+        .then(num => num * 3)
+        .then(num => {
+            return new Promise((resolve, reject)=>{
+                setTimeout(()=> resolve(num - 1),1000)
+            })
+        })
+        .then(num => console.log(num));
+    </script>
+    -->
+    <script>
+			const numArr = [0,1,2,3,4,5,6,7,8,9,10];
+      const evenNumFilter = arr => arr.filter(num => num % 2 === 0) 
+      const byeZero = arr => arr.filter(num => num !== 0 )
+
+
+			const numberChecker = () => 
+        new Promise((resolve, reject)=>{
+          console.log(`numberChecker Promise입니다! 3초뒤에 서버로부터 numArr를 받아와 계산을 시작합니다!`)
+          setTimeout(()=>{
+            resolve(numArr)
+            reject(new Error("당신. 오류를 범했습니다."))
+          },3000)
+        })
+
+      const welcome = () => 
+        new Promise((resolve, reject)=>{      
+          console.log("welcome Promise입니다! 3초뒤에 서버로부터 msg를 받아와 출력합니다!")
+          setTimeout(()=>{            
+            resolve("여러분은 지금 Promise에서 또 다른 promise호출에 성공했습니다!!!!")
+            reject(new Error("당신. 또 오류를 범했습니다."))
+          },3000)
+        })
+
+      numberChecker()//  
+      .then(numArr => (console.log("1단계 : numArr에서 짝수만 골라냅니다. (3초 소요)"),numArr))    
+			.then(numArr => new Promise((resolve, reject)=>{
+          setTimeout(() => resolve(evenNumFilter(numArr)),3000)
+        }))
+
+      .then(numArr => (console.log(numArr) , console.log("2단계 : 짝수numArr에서 0을 제거합니다.(3초 소요)"),numArr))
+      .then(numArr => new Promise((resolve, reject)=>{
+          setTimeout(() => resolve(byeZero(numArr)),3000)
+        }))
+
+      .then(numArr => console.log(`최종값은 ${numArr} 입니다! 3초뒤에 다음 promise를 호출합니다.`)) 
+      .then(() => new Promise((resolve, reject)=>{
+          setTimeout(() => resolve((welcome())),3000)
+      }))
+
+      .then(msg => console.log(msg))
+
+      .finally(()=>console.log(`고생하셨습니다.`))
+					
+					
+
+    </script>
+</body>
+</html>

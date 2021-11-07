@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Go hard</h1>
+    <a target="blank" href="https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=go+hard&oquery=%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0&tqi=hayl7lp0J1ZssuRPEdZssssssml-469177">Go HARD!!!!</a>
+    <script>
+    
+        
+     
+
+    function handler(self){
+        var bodyTarget = document.querySelector('body');
+        var aTarget = document.querySelectorAll('a');
+        if(self.value == 'night'){
+            bodyTarget.style.backgroundColor = 'black';
+            bodyTarget.style.color = 'white';
+            self.value = 'morning';
+            for(i = 0; i < aTarget.length; i++){
+                aTarget[i].style.color = 'white';
+                }
+        }
+        else{
+            bodyTarget.style.backgroundColor='white';
+            bodyTarget.style.color='black';
+            self.value = 'night';
+            for(i = 0; i < aTarget.length; i++){
+                aTarget[i].style.color = 'black';
+                }   
+        }        
+    }
+    </script>
+    <input type="button" value="night" onclick="
+    handler(this)">
+    
+</body>
+</html>
