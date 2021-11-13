@@ -1,14 +1,14 @@
 const numArr = [0,1,2,3,4,5,6,7,8,9,10];
-const evenNumFilter = arr => arr.filter(num => num % 2 === 0) 
+const evenNumFilter = numArr => numArr.filter(num => num % 2 === 0) 
 const byeZero = arr => arr.filter(num => num !== 0 )
 
 const numberChecker = () => 
-new Promise((resolve, reject)=>{
-console.log(`numberChecker Promise입니다! 3초뒤에 서버로부터 numArr를 받아와 계산을 시작합니다!`)
-setTimeout(()=>{
-  resolve(numArr)
-  reject(new Error("당신. 오류를 범했습니다."))
-},3000)
+  new Promise((resolve, reject)=>{
+  console.log(`numberChecker Promise입니다! 3초뒤에 서버로부터 numArr를 받아와 계산을 시작합니다!`)
+  setTimeout(()=>{
+    resolve(numArr)
+    reject(new Error("당신. 오류를 범했습니다."))
+  },3000)
 })
 
 const welcome = () => 
