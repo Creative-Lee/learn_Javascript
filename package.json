@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Creative-Lee/learn_Javascript/issues"
   },
-  "homepage": "https://github.com/Creative-Lee/learn_Javascript#readme"
+  "homepage": "https://github.com/Creative-Lee/learn_Javascript#readme",
+  "devDependencies": {
+    "jest": "^27.4.3"
+  }
 }
