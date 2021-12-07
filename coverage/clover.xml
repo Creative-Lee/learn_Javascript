@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1638847894789" clover="3.2.0">
+  <project timestamp="1638847894789" name="All files">
+    <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1" elements="9" coveredelements="9" complexity="0" loc="4" ncloc="4" packages="1" files="1" classes="1"/>
+    <file name="sum.js" path="C:\Users\HP_600_G2_Win10_ENP\Desktop\이도현\learn_Javascript\javascript공부2\sum.js">
+      <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+      <line num="2" count="10" type="cond" truecount="4" falsecount="0"/>
+      <line num="3" count="5" type="stmt"/>
+      <line num="5" count="5" type="stmt"/>
+      <line num="8" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>
