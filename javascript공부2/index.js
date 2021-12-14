@@ -1,15 +1,17 @@
-import _ from 'lodash'
+function marry(man, woman) {
+  man.wife = woman;
+  woman.husband = man;
 
-let info = {
-  boy : {
-    isGood : true,
-    isPretty : false,
+  return {
+    father: man,
+    mother: woman
   }
 }
 
-let clone = _.cloneDeep(info);
+let family = marry({name: "John"}, {name: "Ann"});
 
-clone.boy.isGood = false
+delete family.father
+delete family.mother.husband
 
-console.log(info.boy.isGood)
-console.log(clone.boy.isGood)
+
+console.log(family.mother)
