@@ -459,22 +459,19 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"3DtaZ":[function(require,module,exports) {
-function marry(man, woman) {
-    man.wife = woman;
-    woman.husband = man;
+function relation(teacher, student) {
+    teacher.student = student;
+    student.teacher = teacher;
     return {
-        father: man,
-        mother: woman
+        sky: teacher,
+        ground: student
     };
 }
-let family = marry({
-    name: "John"
+console.log(relation({
+    name: 'An'
 }, {
-    name: "Ann"
-});
-delete family.father;
-delete family.mother.husband;
-console.log(family.mother);
+    name: 'Lee'
+}));
 
 },{}]},["gLWgt","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
 

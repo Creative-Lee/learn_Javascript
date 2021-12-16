@@ -1,17 +1,12 @@
-function marry(man, woman) {
-  man.wife = woman;
-  woman.husband = man;
+function relation(teacher, student) {
+  teacher.student = student;
+  student.teacher = teacher;
 
   return {
-    father: man,
-    mother: woman
-  }
+    sky : teacher,
+    ground : student
+  }  
 }
 
-let family = marry({name: "John"}, {name: "Ann"});
+console.log(relation({name:'An'},{name:'Lee'})) 
 
-delete family.father
-delete family.mother.husband
-
-
-console.log(family.mother)
