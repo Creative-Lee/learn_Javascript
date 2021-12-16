@@ -140,7 +140,7 @@
       this[globalName] = mainExports;
     }
   }
-})({"gLWgt":[function(require,module,exports) {
+})({"55X48":[function(require,module,exports) {
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
@@ -467,12 +467,20 @@ function relation(teacher, student) {
         ground: student
     };
 }
-console.log(relation({
+let teacherAndStudent = relation({
     name: 'An'
 }, {
     name: 'Lee'
-}));
+});
+delete teacherAndStudent.ground;
+delete teacherAndStudent.sky.student;
+console.log(teacherAndStudent) // {sky: {name: 'An'}}
+;
+console.log(teacherAndStudent.sky) // {name: 'An'}
+;
+console.log(teacherAndStudent.ground) // undefined
+;
 
-},{}]},["gLWgt","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
+},{}]},["55X48","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
 
 //# sourceMappingURL=index.91ebe56b.js.map
