@@ -1,12 +1,14 @@
-function User(name){  
-    this.name = name
-    this.isGood = true
-    
-    return "hihihihi"  
+function Acc(initialValue){
+  this.value = initialValue;
+
+  this.read = () => {
+    this.value += +prompt('숫자')
+  }
 }
 
-let user1 = new User('태훈')
+let acc = new Acc(0)
 
-console.log(user1) 
+acc.read()
+acc.read()
 
-
+console.log(acc.value)
