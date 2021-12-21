@@ -459,23 +459,13 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"3DtaZ":[function(require,module,exports) {
-let calculator = {
-    num1: null,
-    num2: null,
-    read () {
-        this.num1 = +prompt('숫자1', "1");
-        this.num2 = +prompt('숫자2', "2");
-    },
-    sum () {
-        return this.num1 + +this.num2;
-    },
-    mul () {
-        return this.num1 * this.num2;
-    }
-};
-calculator.read();
-alert(calculator.sum());
-alert(calculator.mul());
+function User(name) {
+    this.name = name;
+    this.isGood = true;
+    return "hihihihi";
+}
+let user1 = new User('태훈');
+console.log(user1);
 
 },{}]},["gLWgt","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
 
