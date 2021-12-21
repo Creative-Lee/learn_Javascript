@@ -140,7 +140,7 @@
       this[globalName] = mainExports;
     }
   }
-})({"55X48":[function(require,module,exports) {
+})({"gLWgt":[function(require,module,exports) {
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
@@ -459,7 +459,6 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"3DtaZ":[function(require,module,exports) {
-<<<<<<< HEAD
 let calculator = {
     num1: null,
     num2: null,
@@ -477,33 +476,7 @@ let calculator = {
 calculator.read();
 alert(calculator.sum());
 alert(calculator.mul());
-=======
-function relation(teacher, student) {
-    teacher.student = student;
-    student.teacher = teacher;
-    return {
-        sky: teacher,
-        ground: student
-    };
-}
-let teacherAndStudent = relation({
-    name: 'An'
-}, {
-    name: 'Lee'
-});
-delete teacherAndStudent.ground;
-delete teacherAndStudent.sky.student;
-console.log(teacherAndStudent) // {sky: {name: 'An'}}
-;
-console.log(teacherAndStudent.sky) // {name: 'An'}
-;
-console.log(teacherAndStudent.ground) // undefined
-;
-<<<<<<< Updated upstream
-=======
->>>>>>> a5be6492d2b517ae668f575e3f3b28241419be8c
->>>>>>> Stashed changes
 
-},{}]},["55X48","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
+},{}]},["gLWgt","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
 
 //# sourceMappingURL=index.91ebe56b.js.map
