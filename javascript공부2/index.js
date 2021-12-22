@@ -1,14 +1,6 @@
-function Acc(initialValue){
-  this.value = initialValue;
-
-  this.read = () => {
-    this.value += +prompt('숫자')
-  }
+let user1 = {
+  name: 'Lee',
+  age: 18,
 }
 
-let acc = new Acc(0)
-
-acc.read()
-acc.read()
-
-console.log(acc.value)
+user1?.name = 'kim' //Uncaught SyntaxError: Invalid left-hand side in assignment
