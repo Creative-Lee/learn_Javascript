@@ -1,6 +1,13 @@
-let user1 = {
-  name: 'Lee',
-  age: 18,
+let pw = Symbol('pw')
+
+let user = {
+  name: 'Kim',
+  id : 'go heaven',
+  [pw] : 1234
 }
 
-user1?.name = 'kim' //Uncaught SyntaxError: Invalid left-hand side in assignment
+for(let key in user) {
+  console.log(`${key} : ${user[key]}`)
+}
+
+console.log(Object.keys(user)) // ['name', 'id']
