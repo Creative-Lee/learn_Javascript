@@ -459,14 +459,11 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"3DtaZ":[function(require,module,exports) {
-let pw = Symbol('pw');
-let user = {
-    name: 'Kim',
-    id: 'go heaven',
-    [pw]: 1234
-};
-for(let key in user)console.log(`${key} : ${user[key]}`);
-console.log(Object.keys(user)) // ['name', 'id']
+let pw = Symbol.for('pw 인데용?');
+let pwpw = Symbol.for('pw 입니다.');
+console.log(Symbol.keyFor(pw)) //pw 인데용?
+;
+console.log(Symbol.keyFor(pwpw)) //pw 입니다.
 ;
 
 },{}]},["gLWgt","3DtaZ"], "3DtaZ", "parcelRequirecd2f")

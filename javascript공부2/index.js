@@ -1,13 +1,5 @@
-let pw = Symbol('pw')
+let pw = Symbol.for('pw 인데용?') 
+let pwpw = Symbol.for('pw 입니다.') 
 
-let user = {
-  name: 'Kim',
-  id : 'go heaven',
-  [pw] : 1234
-}
-
-for(let key in user) {
-  console.log(`${key} : ${user[key]}`)
-}
-
-console.log(Object.keys(user)) // ['name', 'id']
+console.log(Symbol.keyFor(pw)) //pw 인데용?
+console.log(Symbol.keyFor(pwpw)) //pw 입니다.
