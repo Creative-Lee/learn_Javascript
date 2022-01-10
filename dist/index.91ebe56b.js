@@ -459,12 +459,17 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"3DtaZ":[function(require,module,exports) {
-let pw = Symbol.for('pw 인데용?');
-let pwpw = Symbol.for('pw 입니다.');
-console.log(Symbol.keyFor(pw)) //pw 인데용?
-;
-console.log(Symbol.keyFor(pwpw)) //pw 입니다.
-;
+let user1 = {
+    name: 'John',
+    grade: 100,
+    toString () {
+        return this.name;
+    },
+    valueOf () {
+        return this.grade;
+    }
+};
+alert(+user1);
 
 },{}]},["gLWgt","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
 
