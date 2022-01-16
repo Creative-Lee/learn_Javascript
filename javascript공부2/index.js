@@ -1,14 +1,5 @@
-let user1 = {
-  name: 'John',
-  grade : 100,
+let string = "나는 문자입니다."
+string.hi = '안녕'
 
-  toString(){
-    return this.name
-  },
+console.log(string.hi) // undefined
 
-  valueOf(){
-    return this.grade
-  }
-}
-
-alert(+user1)

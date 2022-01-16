@@ -459,17 +459,10 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"3DtaZ":[function(require,module,exports) {
-let user1 = {
-    name: 'John',
-    grade: 100,
-    toString () {
-        return this.name;
-    },
-    valueOf () {
-        return this.grade;
-    }
-};
-alert(+user1);
+let string = "나는 문자입니다.";
+string.hi = '안녕';
+console.log(string.hi) // undefined
+;
 
 },{}]},["gLWgt","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
 
