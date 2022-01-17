@@ -459,9 +459,13 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"3DtaZ":[function(require,module,exports) {
-let string = "나는 문자입니다.";
-string.hi = '안녕';
-console.log(string.hi) // undefined
+console.log(true) // true
+;
+console.log(Object.is(0, -0)) // false
+;
+console.log(false) // false
+;
+console.log(Object.is(NaN, NaN)) // true
 ;
 
 },{}]},["gLWgt","3DtaZ"], "3DtaZ", "parcelRequirecd2f")

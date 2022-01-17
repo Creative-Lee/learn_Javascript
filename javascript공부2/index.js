@@ -1,5 +1,8 @@
-let string = "나는 문자입니다."
-string.hi = '안녕'
+console.log(0 === -0) // true
+console.log(Object.is(0 , -0)) // false
 
-console.log(string.hi) // undefined
+console.log(NaN === NaN) // false
+console.log(Object.is(NaN , NaN)) // true
+
+
 
