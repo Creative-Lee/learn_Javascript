@@ -459,14 +459,7 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"3DtaZ":[function(require,module,exports) {
-console.log(true) // true
-;
-console.log(Object.is(0, -0)) // false
-;
-console.log(false) // false
-;
-console.log(Object.is(NaN, NaN)) // true
-;
+console.log(Math.pow(3, 3));
 
 },{}]},["gLWgt","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
 
