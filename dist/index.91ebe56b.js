@@ -140,7 +140,7 @@
       this[globalName] = mainExports;
     }
   }
-})({"gLWgt":[function(require,module,exports) {
+})({"55X48":[function(require,module,exports) {
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
@@ -459,10 +459,11 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"3DtaZ":[function(require,module,exports) {
-'use strict';
-let hihi = `안녕하세요`;
-hihi[0] = `녕`;
+let hello = `도현아 안녕~ 어 태훈아 안녕 어? 어~안녕~`;
+let pos = -1;
+while((pos = hello.indexOf(`안녕`, pos + 1)) != -1)console.log(pos);
+ // 4 , 14 , 22
 
-},{}]},["gLWgt","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
+},{}]},["55X48","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
 
 //# sourceMappingURL=index.91ebe56b.js.map
