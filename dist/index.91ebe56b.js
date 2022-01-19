@@ -459,7 +459,9 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"3DtaZ":[function(require,module,exports) {
-console.log(Math.pow(3, 3));
+'use strict';
+let hihi = `안녕하세요`;
+hihi[0] = `녕`;
 
 },{}]},["gLWgt","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
 

@@ -1,2 +1,8 @@
+'use strict'
 
-console.log(Math.pow(3,3))
+let hihi = `안녕하세요`
+
+hihi[0] = `녕`
+
+
+
