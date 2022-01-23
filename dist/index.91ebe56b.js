@@ -140,7 +140,7 @@
       this[globalName] = mainExports;
     }
   }
-})({"55X48":[function(require,module,exports) {
+})({"gLWgt":[function(require,module,exports) {
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
@@ -459,11 +459,13 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"3DtaZ":[function(require,module,exports) {
-function extractCurrencyValue(str) {
-    return +str.slice(1);
-}
-console.log(extractCurrencyValue(`$1420`));
+let friend = [];
+friend[0] = '도현';
+friend[999] = '태훈';
+friend.num2 = '태오';
+console.log(friend) // (1000) ['도현', empty × 998, '태훈', num2: '태오']
+;
 
-},{}]},["55X48","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
+},{}]},["gLWgt","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
 
 //# sourceMappingURL=index.91ebe56b.js.map
