@@ -459,12 +459,14 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"3DtaZ":[function(require,module,exports) {
-let friend = [];
-friend[0] = '도현';
-friend[999] = '태훈';
-friend.num2 = '태오';
-console.log(friend) // (1000) ['도현', empty × 998, '태훈', num2: '태오']
-;
+let sumInput = ()=>{
+    let numArr = [];
+    let sumNum;
+    let getNum = +prompt('숫자를 입력하시오');
+    numArr.push(getNum);
+    for (let number of numArr)sumNum = +number;
+    return sumNum;
+};
 
 },{}]},["gLWgt","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
 

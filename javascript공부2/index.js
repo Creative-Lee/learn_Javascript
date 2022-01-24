@@ -1,12 +1,14 @@
-let friend = [];
+let sumInput = () => {
+  let numArr = [];
+  let sumNum;
 
-friend[0] = '도현'
-friend[999] = '태훈'
+  let getNum = +prompt('숫자를 입력하시오')
+  
+  numArr.push(getNum);
 
-friend.num2 = '태오'
+  for(let number of numArr){
+    sumNum =+ number
+  }
 
-console.log(friend) // (1000) ['도현', empty × 998, '태훈', num2: '태오']
-
-
-
-
+  return sumNum;
+}
