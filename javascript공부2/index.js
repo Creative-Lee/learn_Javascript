@@ -1,14 +1,11 @@
-let sumInput = () => {
-  let numArr = [];
-  let sumNum;
-
-  let getNum = +prompt('숫자를 입력하시오')
-  
-  numArr.push(getNum);
-
-  for(let number of numArr){
-    sumNum =+ number
+function getMaxSubSum(arr){
+  for(let i = 0; i < arr.length; i++){
+    
+    arr[i] < arr[i + 1];
   }
 
-  return sumNum;
+  for(let num of arr){
+
+  }
+
 }
