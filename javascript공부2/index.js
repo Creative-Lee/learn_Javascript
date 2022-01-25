@@ -1,11 +1,15 @@
+let arr = [1, -2, 3 , 4]
+
 function getMaxSubSum(arr){
+  let sumSubArr =  arr[0] ;
+
   for(let i = 0; i < arr.length; i++){
-    
-    arr[i] < arr[i + 1];
+    for(let j = 1; j < arr.length; j++){
+      sumSubArr < arr[i] + arr[j] + arr[j+1]      //여기부터
+    }    
   }
 
-  for(let num of arr){
-
-  }
-
+  return sumSubArr
 }
+
+console.log(getMaxSubSum(arr))

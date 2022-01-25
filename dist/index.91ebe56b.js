@@ -140,7 +140,7 @@
       this[globalName] = mainExports;
     }
   }
-})({"gLWgt":[function(require,module,exports) {
+})({"55X48":[function(require,module,exports) {
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
@@ -459,20 +459,20 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"3DtaZ":[function(require,module,exports) {
-let sumInput = ()=>{
-    let numArr = [];
-    let sumNum = 0;
-    let getNum;
-    while(true){
-        getNum = prompt('숫자를 입력하시오');
-        if (getNum === '' || getNum === null || !isFinite(getNum)) break;
-        numArr.push(+getNum);
-    }
-    for (let number of numArr)sumNum += number;
-    return sumNum;
-};
-console.log(sumInput());
+let arr1 = [
+    1,
+    -2,
+    3,
+    4
+];
+function getMaxSubSum(arr) {
+    let sumSubArr = arr[0];
+    for(let i = 0; i < arr.length; i++)for(let j = 1; j < arr.length; j++)arr[i], arr[j], arr[j + 1] //여기부터
+    ;
+    return sumSubArr;
+}
+console.log(getMaxSubSum(arr1));
 
-},{}]},["gLWgt","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
+},{}]},["55X48","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
 
 //# sourceMappingURL=index.91ebe56b.js.map
