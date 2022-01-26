@@ -140,7 +140,7 @@
       this[globalName] = mainExports;
     }
   }
-})({"55X48":[function(require,module,exports) {
+})({"gLWgt":[function(require,module,exports) {
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
@@ -461,18 +461,24 @@ function hmrAcceptRun(bundle, id) {
 },{}],"3DtaZ":[function(require,module,exports) {
 let arr1 = [
     1,
-    -2,
+    -4,
     3,
-    4
+    4,
+    -6,
+    -10
 ];
 function getMaxSubSum(arr) {
-    let sumSubArr = arr[0];
-    for(let i = 0; i < arr.length; i++)for(let j = 1; j < arr.length; j++)arr[i], arr[j], arr[j + 1] //여기부터
-    ;
-    return sumSubArr;
+    let maxSubArrSum = 0;
+    let subArrSum = 0;
+    for(let i = 0; i < arr.length; i++){
+        subArrSum += arr[i];
+        if (0 > subArrSum) subArrSum = 0;
+        maxSubArrSum = Math.max(maxSubArrSum, subArrSum);
+    }
+    return maxSubArrSum;
 }
 console.log(getMaxSubSum(arr1));
 
-},{}]},["55X48","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
+},{}]},["gLWgt","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
 
 //# sourceMappingURL=index.91ebe56b.js.map
