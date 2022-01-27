@@ -1,20 +1,6 @@
-let arr = [1, -4, 3 , 4, -6 , -10]
+let arr = [1 , 2, 3, 4, 5, 6]
 
-function getMaxSubSum(arr){   
-  let maxSubArrSum = 0  
-  let subArrSum = 0
-  
-  for(let i = 0; i < arr.length; i++){  
-    subArrSum += arr[i];
+let sliceElement = arr.slice(-3)
 
-    if(0 > subArrSum){
-      subArrSum = 0;
-    }
-    
-    maxSubArrSum = Math.max(maxSubArrSum,subArrSum);
-  } 
-
-  return maxSubArrSum
-}
-
-console.log(getMaxSubSum(arr))
+console.log(arr) // [1, 2, 3, 4, 5, 6]
+console.log(sliceElement) // [1, 2, 3, 4, 5, 6, 7]

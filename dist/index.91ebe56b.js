@@ -459,25 +459,19 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"3DtaZ":[function(require,module,exports) {
-let arr1 = [
+let arr = [
     1,
-    -4,
+    2,
     3,
     4,
-    -6,
-    -10
+    5,
+    6
 ];
-function getMaxSubSum(arr) {
-    let maxSubArrSum = 0;
-    let subArrSum = 0;
-    for(let i = 0; i < arr.length; i++){
-        subArrSum += arr[i];
-        if (0 > subArrSum) subArrSum = 0;
-        maxSubArrSum = Math.max(maxSubArrSum, subArrSum);
-    }
-    return maxSubArrSum;
-}
-console.log(getMaxSubSum(arr1));
+let sliceElement = arr.slice(-3);
+console.log(arr) // [1, 2, 3, 4, 5, 6]
+;
+console.log(sliceElement) // [1, 2, 3, 4, 5, 6, 7]
+;
 
 },{}]},["gLWgt","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
 
