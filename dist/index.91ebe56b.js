@@ -462,15 +462,13 @@ function hmrAcceptRun(bundle, id) {
 let arr = [
     1,
     2,
-    3,
-    4,
-    5,
-    6
+    NaN
 ];
-let sliceElement = arr.slice(-3);
-console.log(arr) // [1, 2, 3, 4, 5, 6]
+console.log(arr.indexOf(NaN, 0)) // -1
 ;
-console.log(sliceElement) // [1, 2, 3, 4, 5, 6, 7]
+console.log(arr.lastIndexOf(NaN, 2)) // -1
+;
+console.log(arr.includes(NaN, 0)) // true
 ;
 
 },{}]},["gLWgt","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
