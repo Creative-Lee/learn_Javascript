@@ -459,16 +459,26 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"3DtaZ":[function(require,module,exports) {
-let arr = [
-    1,
-    2,
-    NaN
+let nameArr = [
+    {
+        name: 'Lee'
+    },
+    {
+        name: 'Kim'
+    },
+    {
+        name: 'Park'
+    },
+    {
+        name: 'Lee'
+    }, 
 ];
-console.log(arr.indexOf(NaN, 0)) // -1
+let filterdByName = nameArr.filter((item)=>item.name === 'Lee'
+);
+console.log(filterdByName) // {name: 'Lee'}
 ;
-console.log(arr.lastIndexOf(NaN, 2)) // -1
-;
-console.log(arr.includes(NaN, 0)) // true
+console.log(nameArr.findIndex((item)=>item.name = 'Lee'
+)) // 0
 ;
 
 },{}]},["gLWgt","3DtaZ"], "3DtaZ", "parcelRequirecd2f")

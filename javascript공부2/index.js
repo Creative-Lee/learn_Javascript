@@ -1,5 +1,10 @@
-let arr = [1, 2, NaN]
+let nameArr = [
+  {name: 'Lee'},
+  {name: 'Kim'},
+  {name: 'Park'},
+  {name: 'Lee'},
+]
+let filterdByName = nameArr.filter(item => item.name === 'Lee') 
 
-console.log(arr.indexOf(NaN,0)) // -1
-console.log(arr.lastIndexOf(NaN,2)) // -1
-console.log(arr.includes(NaN,0)) // true
+console.log(filterdByName) // {name: 'Lee'}
+console.log(nameArr.findIndex(item => item.name = 'Lee')) // 0
