@@ -1,10 +1,15 @@
-let nameArr = [
-  {name: 'Lee'},
-  {name: 'Kim'},
-  {name: 'Park'},
-  {name: 'Lee'},
-]
-let filterdByName = nameArr.filter(item => item.name === 'Lee') 
+function camelize(str){
+  return str
+    .split('-')
+    .map((word,index) => {
+      if(index == 0){
+        return word
+      }
+      else{
+        return word[0].toUpperCase() + word.slice(1)
+      }
+    })
+  .join('')
+} 
 
-console.log(filterdByName) // {name: 'Lee'}
-console.log(nameArr.findIndex(item => item.name = 'Lee')) // 0
+console.log(camelize('-javascript-is-holy-shit'))

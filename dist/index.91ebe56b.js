@@ -140,7 +140,7 @@
       this[globalName] = mainExports;
     }
   }
-})({"gLWgt":[function(require,module,exports) {
+})({"55X48":[function(require,module,exports) {
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
@@ -459,28 +459,14 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"3DtaZ":[function(require,module,exports) {
-let nameArr = [
-    {
-        name: 'Lee'
-    },
-    {
-        name: 'Kim'
-    },
-    {
-        name: 'Park'
-    },
-    {
-        name: 'Lee'
-    }, 
-];
-let filterdByName = nameArr.filter((item)=>item.name === 'Lee'
-);
-console.log(filterdByName) // {name: 'Lee'}
-;
-console.log(nameArr.findIndex((item)=>item.name = 'Lee'
-)) // 0
-;
+function camelize(str) {
+    return str.split('-').map((word, index)=>{
+        if (index == 0) return word;
+        else return word[0].toUpperCase() + word.slice(1);
+    }).join('');
+}
+console.log(camelize('-javascript-is-holy-shit'));
 
-},{}]},["gLWgt","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
+},{}]},["55X48","3DtaZ"], "3DtaZ", "parcelRequirecd2f")
 
 //# sourceMappingURL=index.91ebe56b.js.map

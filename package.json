@@ -5,7 +5,7 @@
   "main": "index.js",  
   "scripts": {
     "test": "jest",
-    "start": "parcel ./javascript공부2/index.html --open"
+    "start": "parcel ./index.html --open"
   },
   "repository": {
     "type": "git",
