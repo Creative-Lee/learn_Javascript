@@ -459,21 +459,37 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"1YMiD":[function(require,module,exports) {
-function filterRangeInPlace(arr, a, b) {
-    for(let i = 0; i < arr.length; i++)if (arr[i] < a || arr[i] > b) {
-        arr.splice(i, 1);
-        i-- // 요소를 제거했으니 반복이 진행된 횟수를 하나 줄여줘야함.
-        ;
+function shuffle(array) {
+    for(let i = array.length - 1; i > 0; i--){
+        let randomIndex = Math.floor(Math.random() * (i + 1));
+        let deletedElement = array.splice(randomIndex, 1);
+        array.push(deletedElement[0]);
+    //   let j = Math.floor(Math.random() * (i + 1));
+    //  [array[i], array[j]] = [array[j], array[i]];
     }
 }
-let arr1 = [
-    5,
-    3,
-    8,
-    1
-];
-filterRangeInPlace(arr1, 1, 4);
-console.log(arr1);
+// 1, 2, 3으로 만들 수 있는 모든 순열의 빈도를 세줍니다.
+let count = {
+    '123': 0,
+    '132': 0,
+    '213': 0,
+    '321': 0,
+    '231': 0,
+    '312': 0
+};
+for(let i1 = 0; i1 < 1000000; i1++){
+    let array = [
+        1,
+        2,
+        3
+    ];
+    shuffle(array);
+    count[array.join('')]++;
+}
+// 만들 수 있는 모든 순열의 생성 빈도를 세서 출력해줍니다.
+for(let key in count)console.log(`${key}: ${count[key]}`);
+ // let j = Math.floor(Math.random() * (2 + 1))
+ // console.log(j)
 
 },{}]},["cAVq7","1YMiD"], "1YMiD", "parcelRequirecd2f")
 
