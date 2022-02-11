@@ -1,26 +1,40 @@
-let users = [
-  {id: 'john', name: "John Smith", age: 20},
-  {id: 'ann', name: "Ann Smith", age: 24},
-  {id: 'pete', name: "Pete Peterson", age: 31},
-];
+'use strict'
+let range = {
+  from: 1,
+  to: 5,
 
-function groupById(arr){
-  return arr.reduce((obj,item)=>{
-    obj[item.id] = item
-    return obj
-  },{})
+  [Symbol.iterator](){
+    this.current = this.from
+    return this
+  },
+
+  next(){
+    if(this.current <= this.to){
+      return { done : false , value : this.current++}
+    }
+    else{
+      return { done : true}
+    }
+  }
+
+
+  // [Symbol.iterator](){
+  //   return {
+  //     current : this.from,
+  //     last : this.to,
+      
+  //     next(){
+  //       if (this.current <= this.last){
+  //         return { done : false , value : this.current++}
+  //       }
+  //       else{
+  //         return { done : true }
+  //       }        
+  //     }
+  //   }
+  // },
+};
+
+for(let num of range){
+  console.log(num)
 }
-
-let usersById = groupById(users);
-
-console.log(usersById)
-
-/*
-// after the call we should have:
-
-usersById = {
-  john: {id: 'john', name: "John Smith", age: 20},
-  ann: {id: 'ann', name: "Ann Smith", age: 24},
-  pete: {id: 'pete', name: "Pete Peterson", age: 31},
-}
-*/
