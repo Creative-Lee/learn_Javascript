@@ -459,25 +459,14 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"1YMiD":[function(require,module,exports) {
-'use strict';
-let range = {
-    from: 1,
-    to: 5,
-    [Symbol.iterator] () {
-        this.current = this.from;
-        return this;
-    },
-    next () {
-        if (this.current <= this.to) return {
-            done: false,
-            value: this.current++
-        };
-        else return {
-            done: true
-        };
-    }
-};
-for (let num of range)console.log(num);
+let arr = [
+    1,
+    2,
+    3,
+    4,
+    5
+];
+console.log(arr);
 
 },{}]},["cAVq7","1YMiD"], "1YMiD", "parcelRequirecd2f")
 
