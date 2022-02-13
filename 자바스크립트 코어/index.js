@@ -1,3 +1,3 @@
-let arr = [1,2,3,4,5]
 
-console.log(arr)
+console.log(typeof new Map())
+console.log(typeof new Set())
