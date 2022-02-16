@@ -1,0 +1,25 @@
+실습1
+ArrayList 구현하기
+
+구현할 함수
+add(value) : 맨 뒤에 추가
+addAt(value, index) : 해당 Index에 추가
+remove(value) : 앞에서부터 제일 빨리 만난 해당 값 삭제
+removeAt(index) : 해당 Index값 삭제
+get(index) : 해당 Index 값 반환
+getSize() : 해당 ArrayList의 값이 몇개 들어있는지 반환
+isEmpty() : 해당 ArrayList에 값이 없는지 true/false 반환
+increase() : 내부적으로 배열 키우기
+
+실습2
+linked List 구현하기
+
+구현할 함수
+add(value) : 맨 뒤에 노드 추가
+addAt(value, index) : 해당 Index에 노드 추가
+remove(value) : 앞에서부터 제일 빨리 만난 해당 값 삭제
+removeAt(index) : 해당 Index값 삭제
+get(index) : 해당 Index 값 반환
+getSize() : 해당 linkedList의 값이 몇개 들어있는지 반환
+isEmpty() : 해당 linkedList에 값이 없는지 true/false 반환
+increase() : 내부적으로 배열 키우기
