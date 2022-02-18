@@ -39,14 +39,18 @@ function addAt(value,index){
   }
   
   for(let i= 0; i < index; i++){ //원하는 인덱스 == 탐색 횟수
-    if(i == index - 1){         // 탐색중에 원하는 이전 인덱스를 만나면
-      current.next = newNode;
-    }
     
-    current = current.next;
+    current = current.next;     // head부터 한칸씩 탐색
+
+    //---------------------- 뉴노드
   }
   
-  newNode.next = current;
+  newNode.next = current;       // 새로운 노드의 다음값으로 현재노드(원하는 인덱스의 노드) 연결
+
+  if(index == 0){
+    head = newNode;   //
+  }
+
 
   // 미완성 분기 쪼개서 다시 만들기 ex) head 값이 변할 때도 처리해야함
 }
@@ -87,6 +91,7 @@ function showAllNode(){
 }
 
 add(1)
-addAt(2,0)
+add(2)
+add(3)
 
 console.log(showAllNode())
