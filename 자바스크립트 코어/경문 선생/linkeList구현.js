@@ -3,26 +3,24 @@ let current = null // node obj
 let size = 0 // 총 노드 수 
 
 function add(value) {
-  if (head == null) {
+  if(head == null){
     head = {
       value: value,
       next: null
-    };
-    size += 1;  
+    }
+
     return
   }
 
-  
-
-  let tailNode = { 
+  let tailNode ={
     value: value,
-    next : null
+    next: null
   }
-
-  current = head;
-  current = current.next;
-
   
+  current = head
+  current = current.next
   
-  size += 1;  
+
 }
+
+add(1)
