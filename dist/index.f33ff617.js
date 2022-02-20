@@ -483,19 +483,32 @@ function add(value) {
     current.next = tailNode; // 새 노드 생성, 현재노드의 다음 노드로 이어줌
 }
 function addAt(value, index) {
-    if (getSize() <= index) {
-        add(value);
-        return;
-    }
     current = head;
     let newNode = {
         value: value,
         next: null
     };
-    for(let i = 0; i < index; i++)current = current.next; // head부터 한칸씩 탐색
-    newNode.next = current; // 새로운 노드의 다음값으로 현재노드(원하는 인덱스의 노드) 연결
-    if (index == 0) head = newNode; //
-// 미완성 분기 쪼개서 다시 만들기 ex) head 값이 변할 때도 처리해야함
+    /*맨 뒤에 추가할 경우*/ if (getSize() <= index) {
+        add(value);
+        return;
+    }
+    /*맨 앞에 추가 할 경우*/ if (index === 0) {
+        newNode.next = current;
+        head = newNode;
+        return;
+    }
+    /*중간에 추가할 경우*/ for(let i = 0; i < index; i++){
+        if (i === index - 1) {
+            newNode.next = current.next;
+            current.next = newNode;
+            return;
+        }
+        current = current.next; // head부터 한칸씩 탐색
+    }
+}
+function remove(value) {
+    current = head;
+    for(let i = 0; i < getSize(); i++);
 }
 function get(index) {
     if (getSize() <= index) return undefined;
@@ -510,19 +523,21 @@ function getSize() {
         size += 1;
         current = current.next;
     }
+    current = head;
     return size;
 }
-function showAllNode() {
+function printAllNode() {
     current = head;
     while(current != null){
         console.log(current);
         current = current.next;
     }
+    current = head;
 }
-add(1);
-add(2);
-add(3);
-console.log(showAllNode());
+addAt(1, 2);
+addAt(2, 2);
+addAt(3, 2);
+printAllNode();
 
 },{}]},["cAVq7","1YMiD"], "1YMiD", "parcelRequirecd2f")
 

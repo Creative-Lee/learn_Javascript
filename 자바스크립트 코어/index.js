@@ -26,33 +26,46 @@ function add(value) {
 }
 
 function addAt(value,index){
-  if(getSize() <= index){  //사이즈랑 같거나 큰 인덱스에 값 추가 --> 맨 뒤에 추가
-    add(value);
-    return
-  }
-
   current = head;
 
   let newNode = {
     value: value,
     next: null
   }
-  
-  for(let i= 0; i < index; i++){ //원하는 인덱스 == 탐색 횟수
-    
+
+  /*맨 뒤에 추가할 경우*/
+  if(getSize() <= index){  
+    add(value);
+    return
+  }  
+
+  /*맨 앞에 추가 할 경우*/
+  if(index === 0){            
+    newNode.next = current   
+    head = newNode;         
+    return
+  }
+
+  /*중간에 추가할 경우*/
+  for(let i= 0; i < index; i++){ 
+
+    if(i === index-1){            
+      newNode.next = current.next 
+      current.next = newNode     
+      return
+    }
+
     current = current.next;     // head부터 한칸씩 탐색
+  } 
+}
 
-    //---------------------- 뉴노드
+function remove(value){
+  current = head;
+
+  for(let i= 0; i < getSize(); i++){
+    
   }
   
-  newNode.next = current;       // 새로운 노드의 다음값으로 현재노드(원하는 인덱스의 노드) 연결
-
-  if(index == 0){
-    head = newNode;   //
-  }
-
-
-  // 미완성 분기 쪼개서 다시 만들기 ex) head 값이 변할 때도 처리해야함
 }
 
 function get(index){
@@ -77,21 +90,21 @@ function getSize(){
     size += 1
     current = current.next
   }
-
+  current = head;
   return size;
 }
 
-function showAllNode(){
+function printAllNode(){
   current = head;
 
   while(current != null) {
     console.log(current);
     current = current.next;
   }
+  current = head;
 }
 
-add(1)
-add(2)
-add(3)
-
-console.log(showAllNode())
+addAt(1,2)
+addAt(2,2)
+addAt(3,2)
+printAllNode()
