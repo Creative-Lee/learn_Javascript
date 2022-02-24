@@ -1,76 +1,67 @@
-let head = null // node obj
-let current = null // node obj
+let headNode = null // node obj
 
 function add(value) {
-  if(head == null){
-    head = {
-      value: value,
-      next: null
-    }
-    return
-  }
 
   let newNode ={
     value: value,
     next: null
   }
 
-  current = head // head에서부터 탐색시작
+  if(headNode == null){
+    headNode = newNode
+    return
+  }
 
-  while(current.next != null){
-    current = current.next // 현재노드가 마지막 노드가 아니면 다음노드 탐색
+  let currentNode = headNode
+
+  while(currentNode.next != null){
+    currentNode = currentNode.next 
   }
   
-  current.next = newNode; // 새 노드 생성, 현재노드의 다음 노드로 이어줌
+  currentNode.next = newNode;   
 }
 
-function addAt(value,index){
-  current = head;
-  let size = getSize()
+function addAt(value,index){   
+  
+  let maxIndex = getNumberOfNodes();
+  let currentNode = headNode;  
 
   let newNode = {
     value: value,
     next: null
-  }
+  };
 
-  /*맨 뒤에 추가할 경우*/
-  if(size == index){  
-    add(value);
+  if(index === 0){            
+    newNode.next = headNode;  
+    headNode = newNode;         
     return
   }  
 
-  /*맨 앞에 추가 할 경우*/
-  if(index === 0){            
-    newNode.next = current   
-    head = newNode;         
+  if(index === maxIndex){  
+    add(value);
     return
   }
+  
+  for(let i = 0; i < index - 1 ; i++){    
+    currentNode = currentNode.next;
+  }
 
-  /*중간에 추가할 경우*/
-  for(let i= 0; i < index; i++){ 
-
-    if(i === index-1){            
-      newNode.next = current.next 
-      current.next = newNode  
-      break
-    }
-
-    current = current.next;     // head부터 한칸씩 탐색
-  } 
+  newNode.next = currentNode.next   
+  currentNode.next = newNode  
 }
 
 function remove(value){  
-  current = head;
+  currentNode = headNode;
   let i = 0;
   let targetIndex = null;
 
-  while(current != null){
-    if(current.value == value){
+  while(currentNode != null){
+    if(currentNode.value == value){
       targetIndex = i;
       break
     }
 
-    current = current.next;
+    currentNode = currentNode.next;
     i++;
   }
 
@@ -83,86 +74,86 @@ function remove(value){
 }
 
 function removeAt(index){
-  current = head;
+  currentNode = headNode;
 
-  if(current == null){
+  if(currentNode == null){
     console.log('노드가 없습니다.')
     return
   }
 
-  let size = getSize();
+  let numberOfNodes = getNumberOfNodes();
   
   /*맨 앞을 삭제 할 경우*/
   if(index === 0){
-    head = current.next
+    headNode = currentNode.next
     return
   }
 
   /*맨 뒤를 삭제 할 경우*/
-  if(size - 1 == index){
+  if(numberOfNodes - 1 == index){
 
-    while(current.next.next != null){
-      current = current.next
+    while(currentNode.next.next != null){
+      currentNode = currentNode.next
     }
 
-    current.next = null;
+    currentNode.next = null;
     return
   }
 
   /*중간을 삭제 할 경우*/
-  if(index < size){
+  if(index < numberOfNodes){
 
     for(let i = 0; i < index ; i++){
 
       if(i == index - 1){
-        current.next = current.next.next
+        currentNode.next = currentNode.next.next
         return
       }     
       
-      current = current.next;      
+      currentNode = currentNode.next;      
     }  
   }  
 }
 
 function get(index){
-  if(getSize() <= index){ 
-    console.log(`index에 해당하는 node가 없습니다. 노드의 총 갯수는 ${getSize()} 입니다.`)
+  if(getNumberOfNodes() <= index){ 
+    console.log(`index에 해당하는 node가 없습니다. 노드의 총 갯수는 ${getNumberOfNodes()} 입니다.`)
     return
   }
 
-  current = head;
+  currentNode = headNode;
 
   for(let i = 0; i < index ; i++){
-    current = current.next;
+    currentNode = currentNode.next;
   }
 
-  return current
+  return currentNode
 }
 
-function getSize(){
-  current = head;
-  let size = 0;
+function getNumberOfNodes(){
+  currentNode = headNode;
+  let numberOfNodes = 0;
   
-  while(current != null){
-    size += 1
-    current = current.next
+  while(currentNode != null){
+    numberOfNodes += 1
+    currentNode = currentNode.next
   }
 
-  current = head;
-  return size;
+  currentNode = headNode;
+  return numberOfNodes;
 }
 
 function isEmpty(){
-  return head == null
+  return headNode == null
 }
 
 function printAllNode(){
-  current = head;
+  currentNode = headNode;
 
-  while(current != null) {
-    console.log(current);
-    current = current.next;
+  while(currentNode != null) {
+    console.log(currentNode);
+    currentNode = currentNode.next;
   }  
-  current = head;
+  currentNode = headNode;
 }
 

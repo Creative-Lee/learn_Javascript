@@ -83,14 +83,6 @@ function remove(value){
   let i = 0;
   let targetIndex = null;
 
-  // for(let i = 0; i < size ; i++){
-  //   if(current.value == value){
-  //     targetIndex = i;
-  //     break
-  //   }
-  //   current = current.next;
-  // }
-
   while(current != null){
     if(current.value == value){
       targetIndex = i;

@@ -459,63 +459,51 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"1YMiD":[function(require,module,exports) {
-let head = null // node obj
-;
-let current = null // node obj
+let headNode = null // node obj
 ;
 function add(value) {
-    if (head == null) {
-        head = {
-            value: value,
-            next: null
-        };
+    let newNode = {
+        value: value,
+        next: null
+    };
+    if (headNode == null) {
+        headNode = newNode;
         return;
     }
-    let newNode = {
-        value: value,
-        next: null
-    };
-    current = head // head에서부터 탐색시작
-    ;
-    while(current.next != null)current = current.next // 현재노드가 마지막 노드가 아니면 다음노드 탐색
-    ;
-    current.next = newNode; // 새 노드 생성, 현재노드의 다음 노드로 이어줌
+    let currentNode = headNode;
+    while(currentNode.next != null)currentNode = currentNode.next;
+    currentNode.next = newNode;
 }
 function addAt(value, index) {
-    current = head;
-    let size = getSize();
+    let maxIndex = getNumberOfNodes();
+    let currentNode = headNode;
     let newNode = {
         value: value,
         next: null
     };
-    /*맨 뒤에 추가할 경우*/ if (size == index) {
+    if (index === 0) {
+        newNode.next = headNode;
+        headNode = newNode;
+        return;
+    }
+    if (index === maxIndex) {
         add(value);
         return;
     }
-    /*맨 앞에 추가 할 경우*/ if (index === 0) {
-        newNode.next = current;
-        head = newNode;
-        return;
-    }
-    /*중간에 추가할 경우*/ for(let i = 0; i < index; i++){
-        if (i === index - 1) {
-            newNode.next = current.next;
-            current.next = newNode;
-            break;
-        }
-        current = current.next; // head부터 한칸씩 탐색
-    }
+    for(let i = 0; i < index - 1; i++)currentNode = currentNode.next;
+    newNode.next = currentNode.next;
+    currentNode.next = newNode;
 }
 function remove(value) {
-    current = head;
+    currentNode = headNode;
     let i = 0;
     let targetIndex = null;
-    while(current != null){
-        if (current.value == value) {
+    while(currentNode != null){
+        if (currentNode.value == value) {
             targetIndex = i;
             break;
         }
-        current = current.next;
+        currentNode = currentNode.next;
         i++;
     }
     if (targetIndex == null) {
@@ -525,58 +513,58 @@ function remove(value) {
     removeAt(targetIndex);
 }
 function removeAt(index) {
-    current = head;
-    if (current == null) {
+    currentNode = headNode;
+    if (currentNode == null) {
         console.log('노드가 없습니다.');
         return;
     }
-    let size = getSize();
+    let numberOfNodes = getNumberOfNodes();
     /*맨 앞을 삭제 할 경우*/ if (index === 0) {
-        head = current.next;
+        headNode = currentNode.next;
         return;
     }
-    /*맨 뒤를 삭제 할 경우*/ if (size - 1 == index) {
-        while(current.next.next != null)current = current.next;
-        current.next = null;
+    /*맨 뒤를 삭제 할 경우*/ if (numberOfNodes - 1 == index) {
+        while(currentNode.next.next != null)currentNode = currentNode.next;
+        currentNode.next = null;
         return;
     }
-    /*중간을 삭제 할 경우*/ if (index < size) for(let i = 0; i < index; i++){
+    /*중간을 삭제 할 경우*/ if (index < numberOfNodes) for(let i = 0; i < index; i++){
         if (i == index - 1) {
-            current.next = current.next.next;
+            currentNode.next = currentNode.next.next;
             return;
         }
-        current = current.next;
+        currentNode = currentNode.next;
     }
 }
 function get(index) {
-    if (getSize() <= index) {
-        console.log(`index에 해당하는 node가 없습니다. 노드의 총 갯수는 ${getSize()} 입니다.`);
+    if (getNumberOfNodes() <= index) {
+        console.log(`index에 해당하는 node가 없습니다. 노드의 총 갯수는 ${getNumberOfNodes()} 입니다.`);
         return;
     }
-    current = head;
-    for(let i = 0; i < index; i++)current = current.next;
-    return current;
+    currentNode = headNode;
+    for(let i = 0; i < index; i++)currentNode = currentNode.next;
+    return currentNode;
 }
-function getSize() {
-    current = head;
-    let size = 0;
-    while(current != null){
-        size += 1;
-        current = current.next;
+function getNumberOfNodes() {
+    currentNode = headNode;
+    let numberOfNodes = 0;
+    while(currentNode != null){
+        numberOfNodes += 1;
+        currentNode = currentNode.next;
     }
-    current = head;
-    return size;
+    currentNode = headNode;
+    return numberOfNodes;
 }
 function isEmpty() {
-    return head == null;
+    return headNode == null;
 }
 function printAllNode() {
-    current = head;
-    while(current != null){
-        console.log(current);
-        current = current.next;
+    currentNode = headNode;
+    while(currentNode != null){
+        console.log(currentNode);
+        currentNode = currentNode.next;
     }
-    current = head;
+    currentNode = headNode;
 }
 
 },{}]},["cAVq7","1YMiD"], "1YMiD", "parcelRequirecd2f")
