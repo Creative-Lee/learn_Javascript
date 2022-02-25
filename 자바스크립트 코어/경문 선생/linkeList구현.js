@@ -1,21 +1,3 @@
-// let head = {
-//   value: 1,
-//   next: null
-// }
-
-// let current = head
-
-// current.next = {
-//   value: 2,
-//   next: null
-// }
-
-// current = current.next;
-// current = null;
-
-// head.next // {value: 2,next: null}
-// current // null
-
 let head = null // node obj
 let current = null // node obj
 // let size = 0; ---> getSize 메소드 구현으로 필요 없어짐
