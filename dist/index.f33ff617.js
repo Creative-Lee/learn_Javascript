@@ -475,23 +475,23 @@ function add(value) {
     currentNode.next = newNode;
 }
 function addAt(value, index) {
+    let newNode = {
+        value: value,
+        next: null
+    };
+    if (headNode == null) {
+        headNode = newNode;
+        return;
+    }
     let lastIndex = getSize();
     let currentNode = headNode;
     if (index < 0 || index > lastIndex) {
         console.log(`index의 범위는 0~${lastIndex} 입니다.`);
         return;
     }
-    let newNode = {
-        value: value,
-        next: null
-    };
     if (index === 0) {
         newNode.next = headNode;
         headNode = newNode;
-        return;
-    }
-    if (index === lastIndex) {
-        add(value);
         return;
     }
     for(let i = 0; i < index - 1; i++)currentNode = currentNode.next;
