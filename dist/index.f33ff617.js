@@ -461,98 +461,134 @@ function hmrAcceptRun(bundle, id) {
 },{}],"1YMiD":[function(require,module,exports) {
 let headNode = null // node obj
 ;
-function add(value) {
+let tailNode = null // node obj
+;
+let size = 0;
+function addFirst(value) {
     let newNode = {
-        value: value,
+        value,
+        prev: null,
         next: null
     };
     if (headNode == null) {
         headNode = newNode;
+        tailNode = newNode;
+        size++;
         return;
     }
-    let currentNode = headNode;
-    while(currentNode.next != null)currentNode = currentNode.next;
-    currentNode.next = newNode;
+    headNode.prev = newNode;
+    newNode.next = headNode;
+    headNode = newNode;
+    size++;
+}
+function addLast(value) {
+    let newNode = {
+        value,
+        prev: null,
+        next: null
+    };
+    if (headNode == null) {
+        headNode = newNode;
+        tailNode = newNode;
+        size++;
+        return;
+    }
+    tailNode.next = newNode;
+    newNode.prev = tailNode;
+    tailNode = newNode;
+    size++;
 }
 function addAt(value, index) {
     let newNode = {
-        value: value,
+        value,
+        prev: null,
         next: null
     };
-    if (headNode == null) {
-        headNode = newNode;
-        return;
-    }
-    let lastIndex = getSize();
-    let currentNode = headNode;
+    let lastIndex = size;
     if (index < 0 || index > lastIndex) {
         console.log(`index의 범위는 0~${lastIndex} 입니다.`);
         return;
     }
-    if (index === 0) {
-        newNode.next = headNode;
+    if (headNode == null) {
         headNode = newNode;
+        tailNode = newNode;
+        size++;
         return;
     }
-    for(let i = 0; i < index - 1; i++)currentNode = currentNode.next;
-    newNode.next = currentNode.next;
-    currentNode.next = newNode;
+    if (index === 0) {
+        addFirst(value);
+        return;
+    }
+    if (index === size) {
+        addLast(value);
+        return;
+    }
+    let currentNode = headNode;
+    let prevNode = null;
+    for(let i = 0; i < index; i++){
+        currentNode = currentNode.next;
+        prevNode = currentNode.prev;
+    }
+    prevNode.next = newNode;
+    newNode.next = currentNode;
+    currentNode.prev = newNode;
+    newNode.prev = prevNode;
+    size++;
 }
 function remove(value) {
-    let currentNode = headNode;
-    let numberOfNodes = getSize();
-    let targetIndex = null;
     if (headNode == null) {
         console.log('노드가 없습니다.');
         return;
     }
-    for(let i = 0; i < numberOfNodes; i++){
-        if (currentNode.value == value) targetIndex = i;
+    let lastIndex = size;
+    let currentNode = headNode;
+    let targetIndex = null;
+    for(let i = 0; i < lastIndex; i++){
+        if (currentNode.value == value) {
+            targetIndex = i;
+            break;
+        }
         currentNode = currentNode.next;
     }
-    if (targetIndex == null) console.log(`${value}를 찾을 수 없습니다.`);
+    if (targetIndex == null) {
+        console.log(`${value}를 찾을 수 없습니다.`);
+        return;
+    }
     removeAt(targetIndex);
-// ㅡㅡㅡㅡㅡㅡㅡㅡㅡ 위 아래 뭐가 더 좋은가요?
-//   let currentNode = headNode; 
-//   let numberOfNodes = getSize()  
-//   if(headNode == null){
-//     console.log('노드가 없습니다.')
-//     return
-//   }
-//   for(let i = 0; i < numberOfNodes; i++){
-//     if(currentNode.value == value){
-//       removeAt(i)
-//       return
-//     }
-//     currentNode = currentNode.next;
-//   }  
-//   console.log(`${value}를 찾을 수 없습니다.`)
 }
 function removeAt(index) {
-    let currentNode = headNode;
-    let lastIndex = getSize() - 1;
     if (headNode == null) {
         console.log('노드가 없습니다.');
         return;
     }
+    let lastIndex = size - 1;
     if (index < 0 || index > lastIndex) {
         console.log(`index의 범위는 0~${lastIndex} 입니다.`);
         return;
     }
+    let currentNode = headNode;
+    let prevNode = null;
     if (index === 0) {
         headNode = currentNode.next;
+        size--;
         return;
     }
     if (index == lastIndex) {
-        for(let i = 0; i < index - 1; i++)currentNode = currentNode.next;
-        currentNode.next = null;
+        tailNode = tailNode.prev;
+        tailNode.next = null;
+        size--;
         return;
     }
-    for(let i = 0; i < index - 1; i++)currentNode = currentNode.next;
-    currentNode.next = currentNode.next.next;
+    for(let i = 0; i < index; i++){
+        currentNode = currentNode.next;
+        prevNode = currentNode.prev;
+    }
+    prevNode.next = currentNode.next;
+    currentNode.next.prev = prevNode;
+    size--;
 }
 function get(index) {
-    let lastIndex = getSize() - 1;
+    let lastIndex = size - 1;
     if (index < 0 || index > lastIndex) {
         console.log(`index의 범위는 0~${lastIndex} 입니다.`);
         return;
@@ -560,15 +596,6 @@ function get(index) {
     let currentNode = headNode;
     for(let i = 0; i < index; i++)currentNode = currentNode.next;
     return currentNode;
-}
-function getSize() {
-    let currentNode = headNode;
-    let size = 0;
-    while(currentNode != null){
-        size += 1;
-        currentNode = currentNode.next;
-    }
-    return size;
 }
 function isEmpty() {
     return headNode == null;
@@ -579,11 +606,10 @@ function printAllNode() {
         console.log(currentNode);
         currentNode = currentNode.next;
     }
+    console.log('headNode: ', headNode);
+    console.log('tailNode: ', tailNode);
+    console.log(`size: ${size}`);
 }
-add(0);
-add(1);
-addAt(2, 2);
-printAllNode();
 
 },{}]},["cAVq7","1YMiD"], "1YMiD", "parcelRequirecd2f")
 
