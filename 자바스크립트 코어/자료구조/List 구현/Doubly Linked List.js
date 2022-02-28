@@ -10,7 +10,7 @@ function addFirst(value) {
     next : null
   }
 
-  if(headNode == null){
+  if(!headNode){
     headNode = newNode; 
     tailNode = newNode;
     size++;
@@ -23,7 +23,7 @@ function addFirst(value) {
   size++;
 }
 
-function addLast(value){
+function add(value){
 
   let newNode = {
     value,
@@ -31,7 +31,7 @@ function addLast(value){
     next : null
   }
 
-  if(headNode == null){
+  if(!headNode){
     headNode = newNode; 
     tailNode = newNode;
     size++;
@@ -45,12 +45,6 @@ function addLast(value){
 }
 
 function addAt(value,index){   
-  let newNode = {
-    value,
-    prev : null,
-    next : null
-  }
-
   let lastIndex = size
 
   if(index < 0 || index > lastIndex){
@@ -58,7 +52,13 @@ function addAt(value,index){
     return
   }  
 
-  if(headNode == null){
+  let newNode = {
+    value,
+    prev : null,
+    next : null
+  }
+
+  if(!headNode){
     headNode = newNode; 
     tailNode = newNode;
     size++;
@@ -66,116 +66,167 @@ function addAt(value,index){
   }
   
   if(index === 0){
-    addFirst(value)
+    addFirst(value) // == unshift()
     return
   }
 
-  if(index === size){
-    addLast(value)
+  if(index === lastIndex){
+    add(value) // == push()
     return
   }
 
-  let currentNode = headNode;
-  let prevNode = null;
-
-  for(let i = 0; i < index; i++){
-    currentNode = currentNode.next;
-    prevNode = currentNode.prev;
-  }
+  const currentNode = get(index)
+  const beforeNode = currentNode.prev;  
   
-  prevNode.next = newNode;
+  beforeNode.next = newNode;
   newNode.next = currentNode;
-  currentNode.prev = newNode
-  newNode.prev = prevNode;
+  currentNode.prev = newNode;
+  newNode.prev = beforeNode;
   size++;  
 }
 
 function remove(value){  
-  if(headNode == null){
+  if(size == 0){
     console.log('노드가 없습니다.')
     return
   }
 
-  let lastIndex = size
   let currentNode = headNode;
-  let targetIndex = null;
+  let indexOfValue = null;
 
-  for(let i = 0; i < lastIndex ; i++){
+  for(let i = 0; i < size ; i++){
     if(currentNode.value == value){
-      targetIndex = i;
+      indexOfValue = i;
       break;
     }
-
+    
     currentNode = currentNode.next;
   }
 
-  if(targetIndex == null){
+  if(indexOfValue == null){
     console.log(`${value}를 찾을 수 없습니다.`)
     return
   }
 
-  removeAt(targetIndex);
+  removeAt(indexOfValue);
 }
 
 function removeAt(index){
-  if(headNode == null){
+  if(size == 0){
+    console.log('노드가 없습니다.')
+    return undefined
+  }
+
+  let lastIndex = size - 1;
+
+  if(index < 0 || index > lastIndex){
+    console.log(`index의 범위는 0~${lastIndex} 입니다.`)
+    return
+  }
+  
+  if(index === 0){ 
+    return shift();
+  }
+
+  if(index == lastIndex){
+    return pop();    
+  }
+
+  const removedNode = get(index)
+  const beforeNode = removedNode.prev
+  const afterNode = removedNode.next
+
+  beforeNode.next = afterNode;
+  afterNode.prev = beforeNode;
+  removedNode.next = null;
+  removedNode.prev = null;
+
+  size--;
+  return removedNode
+}
+
+function shift(){
+  if(size == 0){
     console.log('노드가 없습니다.')
     return
   }
 
-  let lastIndex = size - 1;
+  let shiftedNode = headNode;
 
-  if(index < 0 || index > lastIndex){
-    console.log(`index의 범위는 0~${lastIndex} 입니다.`)
+  if(size == 1){
+    headNode = null;
+    tailNode = null;
+  }
+  else{
+    headNode = headNode.next;
+    headNode.prev = null;
+    shiftedNode.next = null;
+  }
+  
+  size--;
+  return shiftedNode;
+}
+
+function pop(){
+  if(size == 0){
+    console.log('노드가 없습니다.')
     return
   }
 
-  let currentNode = headNode;
-  let prevNode = null;
+  let popedNode = tailNode;
 
-  if(index === 0){
-    headNode = currentNode.next;
-    size--;
-    return
-  }
-
-  if(index == lastIndex){
-    tailNode = tailNode.prev;
+  if(size == 1){
+    headNode = null;
+    tailNode = null;
+  } 
+  else {
+    tailNode = tailNode.prev
     tailNode.next = null;
-    size--;
-    return
+    popedNode.prev = null;
   }
-
-  for(let i = 0; i < index ; i++){
-    currentNode = currentNode.next;
-    prevNode = currentNode.prev;
-  }
-
-  prevNode.next = currentNode.next
-  currentNode.next.prev = prevNode
-  size--
+  
+  size--;
+  return popedNode;
 }
 
 function get(index){
   
-  let lastIndex = size - 1;
+  let lastIndex = size - 1; 
 
   if(index < 0 || index > lastIndex){
     console.log(`index의 범위는 0~${lastIndex} 입니다.`)
     return
   }
+  
+  let currentNode;
+  let indexCount;
+  
+  if(index <= (lastIndex / 2)){ 
+    currentNode = headNode;
+    indexCount = 0;  
 
-  let currentNode = headNode; 
-
-  for(let i = 0; i < index ; i++){
-    currentNode = currentNode.next;
+    while(indexCount != index){
+      currentNode = currentNode.next;
+      indexCount++;
+    }
+  
+  }  
+  else{
+    currentNode = tailNode;
+    indexCount = lastIndex;
+  
+    while(indexCount != index){
+      currentNode = currentNode.prev;
+      indexCount--;
+    }
   }
 
   return currentNode
 }
 
+
 function isEmpty(){
-  return headNode == null
+  return size == 0;
 }
 
 function printAllNode(){
@@ -189,3 +240,4 @@ function printAllNode(){
   console.log('tailNode: ',tailNode)
   console.log(`size: ${size}`)
 }
+

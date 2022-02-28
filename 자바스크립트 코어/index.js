@@ -45,18 +45,18 @@ function add(value){
 }
 
 function addAt(value,index){   
-  let newNode = {
-    value,
-    prev : null,
-    next : null
-  }
-
   let lastIndex = size
 
   if(index < 0 || index > lastIndex){
     console.log(`index의 범위는 0~${lastIndex} 입니다.`)
     return
   }  
+
+  let newNode = {
+    value,
+    prev : null,
+    next : null
+  }
 
   if(!headNode){
     headNode = newNode; 
@@ -66,27 +66,22 @@ function addAt(value,index){
   }
   
   if(index === 0){
-    add(value)
+    addFirst(value) // == unshift()
     return
   }
 
-  if(index === size){
-    addLast(value)
+  if(index === lastIndex){
+    add(value) // == push()
     return
   }
 
-  let currentNode = headNode;
-  let prevNode = null;
-
-  for(let i = 0; i < index; i++){
-    currentNode = currentNode.next;
-    prevNode = currentNode.prev;
-  }
+  const currentNode = get(index)
+  const beforeNode = currentNode.prev;  
   
-  prevNode.next = newNode;
+  beforeNode.next = newNode;
   newNode.next = currentNode;
-  currentNode.prev = newNode
-  newNode.prev = prevNode;
+  currentNode.prev = newNode;
+  newNode.prev = beforeNode;
   size++;  
 }
 
@@ -116,12 +111,6 @@ function remove(value){
   removeAt(indexOfValue);
 }
 
-add(0)
-add(1)
-add(2)
-removeAt(0)
-printAllNode()
-
 function removeAt(index){
   if(size == 0){
     console.log('노드가 없습니다.')
@@ -140,10 +129,7 @@ function removeAt(index){
   }
 
   if(index == lastIndex){
-    tailNode = tailNode.prev;
-    tailNode.next = null;
-    size--;
-    return
+    return pop();    
   }
 
   const removedNode = get(index)
@@ -152,8 +138,11 @@ function removeAt(index){
 
   beforeNode.next = afterNode;
   afterNode.prev = beforeNode;
-  size--;
+  removedNode.next = null;
+  removedNode.prev = null;
 
+  size--;
+  return removedNode
 }
 
 function shift(){
@@ -175,7 +164,29 @@ function shift(){
   }
   
   size--;
-  return shiftedNode  
+  return shiftedNode;
+}
+
+function pop(){
+  if(size == 0){
+    console.log('노드가 없습니다.')
+    return
+  }
+
+  let popedNode = tailNode;
+
+  if(size == 1){
+    headNode = null;
+    tailNode = null;
+  } 
+  else {
+    tailNode = tailNode.prev
+    tailNode.next = null;
+    popedNode.prev = null;
+  }
+  
+  size--;
+  return popedNode;
 }
 
 function get(index){
