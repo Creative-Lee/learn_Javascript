@@ -98,9 +98,15 @@ class DoublyLinkedList{
   removeAt(index){
     if(this.size === 0){
       console.log('노드가 없습니다.')
+      return
     }
 
     const lastIndex = this.size - 1;
+
+    if(index < 0 || index > lastIndex){
+      console.log(`index의 범위는 0~${lastIndex} 입니다.`);
+      return
+    }
 
     if(index == 0){
       return this.shift();
@@ -170,6 +176,11 @@ class DoublyLinkedList{
   get(index){
     const lastIndex = this.size - 1;
 
+    if(index < 0 || index > lastIndex){
+      console.log(`index의 범위는 0~${lastIndex} 입니다.`);
+      return
+    }
+
     let currentNode;
     let indexCount;
 
@@ -196,16 +207,22 @@ class DoublyLinkedList{
   }
 
   printAllNode(){
+    if(this.isEmpty()){
+      console.log('노드가 없습니다.');
+      return
+    } 
+
     let currentNode = this.head;
+
     while(currentNode !== null){
       console.log(currentNode);
       currentNode = currentNode.next;
     }
+
     console.log('headNode: ',this.head)
     console.log('tailNode: ',this.tail)
     console.log(`size: ${this.size}`)
   }
-
 }
 
 let doubly = new DoublyLinkedList();

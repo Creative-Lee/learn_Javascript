@@ -76,7 +76,7 @@ class CircularLinkedList{
       return
     }
     
-    let currentNode = this.head;
+    let currentNode = this.tail.next;
     let indexOfValue = null;
 
     for(let i = 0; i < this.size; i++){
@@ -133,35 +133,81 @@ class CircularLinkedList{
       return
     }
 
-    const shiftedNode = this.head;
+    const shiftedNode = this.tail.next;
 
-    if(this.size === 1){
-      this.head = null;
-      this.tail = null; 
+    if(this.size === 1){      
+      this.tail = null;
+      
     }
     else{
-      this.head = this.head.next;
-      this.head.prev = null;
-      shiftedNode.next = null;      
+      this.tail.next = shiftedNode.next
+        
     }
 
-
+    shiftedNode.next = null;
+    this.size--;
+    return shiftedNode;
   }
 
   pop(){
-    
+    if(this.isEmpty()){
+      console.log('노드가 없습니다.');
+      return
+    }
+
+    const popedNode = this.tail;    
+    const lastIndex = this.size - 1
+    const beforeNode = this.get(lastIndex - 1)
+
+    if(this.size === 1){
+      this.tail = null;      
+      
+    }
+    else{
+      beforeNode.next = popedNode.next;
+      this.tail = beforeNode;
+      
+    }
+
+    popedNode.next = null;
+    this.size --;
+    return popedNode;
   }
 
   get(index){
+    const lastIndex = this.size - 1;
 
+    if(index < 0 || index > lastIndex){
+      console.log(`index의 범위는 0~${lastIndex} 입니다.`);
+      return
+    }
+
+    let indexCount = 0;
+    let currentNode = this.tail.next;
+
+    while(indexCount !== index){
+      currentNode = currentNode.next;
+      indexCount++;
+    }
+  
+    return currentNode;
   }
 
   printAllNode(){
-    
+    const lastIndex = this.size - 1
+    const currentNode = this.tail.next;
+
+    for(let i = 0; i < lastIndex; i++){
+      console.log(currentNode)
+      currentNode = currentNode.next;
+    } 
+
+    console.log('tailNode: ',this.tail)
+    console.log(`size: ${this.size}`)
   }
 
   isEmpty(){
-    return !this.head
+    return !this.tail
   }
 
 }
