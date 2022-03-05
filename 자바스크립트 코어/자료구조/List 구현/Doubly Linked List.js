@@ -134,8 +134,8 @@ class DoublyLinkedList{
       console.log('노드가 없습니다.');
       return
     }
-
-    const shiftedNode = this.head;
+    
+    const deletedNode = this.head;
 
     if(this.size === 1){
       this.head = null;
@@ -144,11 +144,11 @@ class DoublyLinkedList{
     else{
       this.head = this.head.next;
       this.head.prev = null;
-      shiftedNode.next = null;      
+      deletedNode.next = null;      
     }
     
     this.size--;
-    return shiftedNode;
+    return deletedNode;
   }
 
   pop(){
@@ -157,7 +157,7 @@ class DoublyLinkedList{
       return
     }
 
-    const popedNode = this.tail;
+    const deletedNode = this.tail;
 
     if(this.size === 1){
       this.head = null;
@@ -166,11 +166,11 @@ class DoublyLinkedList{
     else{
       this.tail = this.tail.prev;
       this.tail.next = null;
-      popedNode.prev = null;      
+      deletedNode.prev = null;      
     }
     
     this.size--;
-    return popedNode;
+    return deletedNode;
   }
 
   get(index){
@@ -206,6 +206,11 @@ class DoublyLinkedList{
     return currentNode;
   }
 
+  isEmpty(){
+    return !this.head
+  }
+
+
   printAllNode(){
     if(this.isEmpty()){
       console.log('노드가 없습니다.');
@@ -227,11 +232,7 @@ class DoublyLinkedList{
 
 let doubly = new DoublyLinkedList();
 doubly.add(0)
-doubly.add(1)
-doubly.add(2)
-doubly.add(3)
-doubly.remove(0)
-doubly.remove(1)
-doubly.remove(2)
+doubly.shift()
+
 doubly.printAllNode()
 

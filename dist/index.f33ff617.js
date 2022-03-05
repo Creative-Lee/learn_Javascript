@@ -532,7 +532,7 @@ class CircularLinkedList {
             console.log(`${value4}를 찾을 수 없습니다.`);
             return;
         }
-        return this.removeAt(indexOfValue);
+        this.removeAt(indexOfValue);
     }
     removeAt(index1) {
         if (this.isEmpty()) {
@@ -558,29 +558,29 @@ class CircularLinkedList {
             console.log('노드가 없습니다.');
             return;
         }
-        const shiftedNode = this.tail.next;
+        const deletedNode = this.tail.next;
         if (this.size === 1) this.tail = null;
-        else this.tail.next = shiftedNode.next;
-        shiftedNode.next = null;
+        else this.tail.next = deletedNode.next;
+        deletedNode.next = null;
         this.size--;
-        return shiftedNode;
+        return deletedNode;
     }
     pop() {
         if (this.isEmpty()) {
             console.log('노드가 없습니다.');
             return;
         }
-        const popedNode = this.tail;
+        const deletedNode = this.tail;
         const lastIndex = this.size - 1;
         const beforeNode = this.get(lastIndex - 1);
         if (this.size === 1) this.tail = null;
         else {
-            beforeNode.next = popedNode.next;
+            beforeNode.next = deletedNode.next;
             this.tail = beforeNode;
         }
-        popedNode.next = null;
+        deletedNode.next = null;
         this.size--;
-        return popedNode;
+        return deletedNode;
     }
     get(index2) {
         const lastIndex = this.size - 1;
@@ -601,8 +601,9 @@ class CircularLinkedList {
             console.log('노드가 없습니다.');
             return;
         }
-        let currentNode = this.tail.next;
-        for(let i = 0; i < this.size; i++){
+        const lastIndex = this.size - 1;
+        const currentNode = this.tail.next;
+        for(let i = 0; i < lastIndex; i++){
             console.log(currentNode);
             currentNode = currentNode.next;
         }
@@ -615,19 +616,8 @@ class CircularLinkedList {
 }
 let circular = new CircularLinkedList();
 circular.add(0);
-circular.addFirst(1);
-circular.addFirst(2);
-circular.addFirst(3);
-circular.addFirst(4);
-// let remove = circular.remove(0)
-// let removeAt = circular.removeAt(0)
-// let shift = circular.shift()
-// let pop = circular.pop()
-circular.printAllNode() // console.log(remove)
- // console.log(removeAt)
- // console.log(shift)
- // console.log(pop)
-;
+circular.removeAt(0);
+circular.printAllNode();
 
 },{}]},["cAVq7","1YMiD"], "1YMiD", "parcelRequirecd2f")
 

@@ -133,21 +133,22 @@ class CircularLinkedList{
       return
     }
 
-    const shiftedNode = this.tail.next;
+    const deletedNode = this.tail.next;
 
     if(this.size === 1){      
-      this.tail = null;
-      
+      this.tail = null;      
     }
     else{
-      this.tail.next = shiftedNode.next
+      this.tail.next = deletedNode.next
         
     }
 
-    shiftedNode.next = null;
+    deletedNode.next = null;
     this.size--;
-    return shiftedNode;
+    return deletedNode;
   }
+
+  
 
   pop(){
     if(this.isEmpty()){
@@ -155,7 +156,7 @@ class CircularLinkedList{
       return
     }
 
-    const popedNode = this.tail;    
+    const deletedNode = this.tail;    
     const lastIndex = this.size - 1
     const beforeNode = this.get(lastIndex - 1)
 
@@ -164,14 +165,14 @@ class CircularLinkedList{
       
     }
     else{
-      beforeNode.next = popedNode.next;
+      beforeNode.next = deletedNode.next;
       this.tail = beforeNode;
       
     }
 
-    popedNode.next = null;
+    deletedNode.next = null;
     this.size --;
-    return popedNode;
+    return deletedNode;
   }
 
   get(index){
@@ -194,6 +195,11 @@ class CircularLinkedList{
   }
 
   printAllNode(){
+    if(this.isEmpty()){
+      console.log('노드가 없습니다.');
+      return
+    }
+    
     const lastIndex = this.size - 1
     const currentNode = this.tail.next;
 
@@ -212,3 +218,8 @@ class CircularLinkedList{
 
 }
 
+let circular = new CircularLinkedList();
+
+circular.add(0)
+circular.removeAt(0)
+circular.printAllNode()

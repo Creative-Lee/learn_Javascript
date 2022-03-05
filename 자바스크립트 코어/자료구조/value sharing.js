@@ -1,22 +1,15 @@
-'use strict'
-let b = 3  // b라는 메모리주소1에  3을 넣음
-
-function test(value) {  //test 함수를 선언하는데 , value 라는 매개변수가 필요함 메모리주소2 있음' \
-  value = 4; //  value의 메모리주소2에 4를 넣은거임
-}
-test(b) // 메모리주소 1은 그대로 3임 
-console.log(b) //3
-
-
-let c = {
-  name : 'test'
+function change(value , ref1 , ref2){
+  value += value
+  ref1.name = 'changed'
+  ref2 = { name : 'changed' }
 }
 
-function test2(obj) {
-  obj = [ 1, 'clear']
-}
+var number = 1;
+var object1 = { name : 'change me plz'};
+var object2 = { name : 'change me plz'};
 
-test2(c)
-console.log(c)
+change(number,object1,object2)
 
-
+console.log(number) // 1
+console.log(object1) // {name: 'changed'}
+console.log(object2) // {name: 'change me plz'}

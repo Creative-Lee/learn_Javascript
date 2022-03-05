@@ -93,7 +93,7 @@ class CircularLinkedList{
       return
     }
 
-    return this.removeAt(indexOfValue);
+    this.removeAt(indexOfValue);
   }
   
   removeAt(index){
@@ -133,21 +133,22 @@ class CircularLinkedList{
       return
     }
 
-    const shiftedNode = this.tail.next;
+    const deletedNode = this.tail.next;
 
     if(this.size === 1){      
-      this.tail = null;
-      
+      this.tail = null;      
     }
     else{
-      this.tail.next = shiftedNode.next
+      this.tail.next = deletedNode.next
         
     }
 
-    shiftedNode.next = null;
+    deletedNode.next = null;
     this.size--;
-    return shiftedNode;
+    return deletedNode;
   }
+
+  
 
   pop(){
     if(this.isEmpty()){
@@ -155,7 +156,7 @@ class CircularLinkedList{
       return
     }
 
-    const popedNode = this.tail;    
+    const deletedNode = this.tail;    
     const lastIndex = this.size - 1
     const beforeNode = this.get(lastIndex - 1)
 
@@ -164,14 +165,14 @@ class CircularLinkedList{
       
     }
     else{
-      beforeNode.next = popedNode.next;
+      beforeNode.next = deletedNode.next;
       this.tail = beforeNode;
       
     }
 
-    popedNode.next = null;
+    deletedNode.next = null;
     this.size --;
-    return popedNode;
+    return deletedNode;
   }
 
   get(index){
@@ -193,15 +194,16 @@ class CircularLinkedList{
     return currentNode;
   }
 
-  printAllNode(){ 
+  printAllNode(){
     if(this.isEmpty()){
       console.log('노드가 없습니다.');
       return
-    } 
+    }
+    
+    const lastIndex = this.size - 1
+    const currentNode = this.tail.next;
 
-    let currentNode = this.tail.next;
-
-    for(let i = 0; i < this.size; i++){
+    for(let i = 0; i < lastIndex; i++){
       console.log(currentNode)
       currentNode = currentNode.next;
     } 
@@ -216,23 +218,8 @@ class CircularLinkedList{
 
 }
 
-
 let circular = new CircularLinkedList();
+
 circular.add(0)
-circular.addFirst(1)
-circular.addFirst(2)
-circular.addFirst(3)
-circular.addFirst(4)
-
-
-// let remove = circular.remove(0)
-// let removeAt = circular.removeAt(0)
-// let shift = circular.shift()
-// let pop = circular.pop()
-
+circular.removeAt(0)
 circular.printAllNode()
-
-// console.log(remove)
-// console.log(removeAt)
-// console.log(shift)
-// console.log(pop)
