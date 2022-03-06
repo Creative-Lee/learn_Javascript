@@ -235,9 +235,30 @@ class DoublyLinkedList{
   }
 }
 
-let doubly = new DoublyLinkedList();
-doubly.add(0)
-doubly.shift()
+class Stack{
+  constructor(){
+    this.list = new DoublyLinkedList()
+  }
 
-doubly.printAllNode()
+  push(value){    
+    this.list.add(value)
+  }
+  pop(){
+    return this.list.pop()
+  }
+  peek(){
+    return this.list.tail
+  }
+}
 
+const stack = new Stack();
+
+stack.push(0)
+stack.push(1)
+stack.push(2)
+stack.pop()
+stack.pop()
+stack.pop()
+
+console.log(stack)
+console.log(stack.list)
