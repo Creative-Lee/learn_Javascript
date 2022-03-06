@@ -462,33 +462,36 @@ function hmrAcceptRun(bundle, id) {
 class Node {
     constructor(value){
         this.value = value;
+        this.prev = null;
         this.next = null;
     }
 }
-class CircularLinkedList {
+class DoublyLinkedList {
     constructor(){
+        this.head = null;
         this.tail = null;
         this.size = 0;
     }
     addFirst(value1) {
         const newNode = new Node(value1);
         if (this.isEmpty()) {
+            this.head = newNode;
             this.tail = newNode;
-            newNode.next = newNode;
         } else {
-            newNode.next = this.tail.next;
-            this.tail.next = newNode;
+            newNode.next = this.head;
+            this.head.prev = newNode;
+            this.head = newNode;
         }
         this.size++;
     }
     add(value2) {
         const newNode = new Node(value2);
         if (this.isEmpty()) {
+            this.head = newNode;
             this.tail = newNode;
-            newNode.next = newNode;
         } else {
-            newNode.next = this.tail.next;
             this.tail.next = newNode;
+            newNode.prev = this.tail;
             this.tail = newNode;
         }
         this.size++;
@@ -509,9 +512,11 @@ class CircularLinkedList {
         }
         const newNode = new Node(value3);
         const currentNode = this.get(index);
-        const beforeNode = this.get(index - 1);
+        const beforeNode = currentNode.prev;
         beforeNode.next = newNode;
         newNode.next = currentNode;
+        currentNode.prev = newNode;
+        newNode.prev = beforeNode;
         this.size++;
     }
     remove(value4) {
@@ -519,7 +524,7 @@ class CircularLinkedList {
             console.log('노드가 없습니다.');
             return;
         }
-        let currentNode = this.tail.next;
+        let currentNode = this.head;
         let indexOfValue = null;
         for(let i = 0; i < this.size; i++){
             if (currentNode.value == value4) {
@@ -546,9 +551,12 @@ class CircularLinkedList {
         }
         if (index1 === 0) return this.shift();
         if (index1 === lastIndex) return this.pop();
-        let removedNode = this.get(index1);
-        let beforeNode = this.get(index1 - 1);
-        beforeNode.next = removedNode.next;
+        const removedNode = this.get(index1);
+        const beforeNode = removedNode.prev;
+        const afterNode = removedNode.next;
+        beforeNode.next = afterNode;
+        afterNode.prev = beforeNode;
+        removedNode.prev = null;
         removedNode.next = null;
         this.size--;
         return removedNode;
@@ -558,10 +566,15 @@ class CircularLinkedList {
             console.log('노드가 없습니다.');
             return;
         }
-        const deletedNode = this.tail.next;
-        if (this.size === 1) this.tail = null;
-        else this.tail.next = deletedNode.next;
-        deletedNode.next = null;
+        const deletedNode = this.head;
+        if (this.size === 1) {
+            this.head = null;
+            this.tail = null;
+        } else {
+            this.head = this.head.next;
+            this.head.prev = null;
+            deletedNode.next = null;
+        }
         this.size--;
         return deletedNode;
     }
@@ -571,14 +584,14 @@ class CircularLinkedList {
             return;
         }
         const deletedNode = this.tail;
-        const lastIndex = this.size - 1;
-        const beforeNode = this.get(lastIndex - 1);
-        if (this.size === 1) this.tail = null;
-        else {
-            beforeNode.next = deletedNode.next;
-            this.tail = beforeNode;
+        if (this.size === 1) {
+            this.head = null;
+            this.tail = null;
+        } else {
+            this.tail = this.tail.prev;
+            this.tail.next = null;
+            deletedNode.prev = null;
         }
-        deletedNode.next = null;
         this.size--;
         return deletedNode;
     }
@@ -588,36 +601,47 @@ class CircularLinkedList {
             console.log(`index의 범위는 0~${lastIndex} 입니다.`);
             return;
         }
-        let indexCount = 0;
-        let currentNode = this.tail.next;
-        while(indexCount !== index2){
-            currentNode = currentNode.next;
-            indexCount++;
+        let currentNode;
+        let indexCount;
+        if (index2 <= lastIndex / 2) {
+            indexCount = 0;
+            currentNode = this.head;
+            while(indexCount !== index2){
+                currentNode = currentNode.next;
+                indexCount++;
+            }
+        } else {
+            indexCount = lastIndex;
+            currentNode = this.tail;
+            while(indexCount !== index2){
+                currentNode = currentNode.prev;
+                indexCount--;
+            }
         }
         return currentNode;
+    }
+    isEmpty() {
+        return !this.head;
     }
     printAllNode() {
         if (this.isEmpty()) {
             console.log('노드가 없습니다.');
             return;
         }
-        const lastIndex = this.size - 1;
-        const currentNode = this.tail.next;
-        for(let i = 0; i < lastIndex; i++){
+        let currentNode = this.head;
+        while(currentNode !== null){
             console.log(currentNode);
             currentNode = currentNode.next;
         }
+        console.log('headNode: ', this.head);
         console.log('tailNode: ', this.tail);
         console.log(`size: ${this.size}`);
     }
-    isEmpty() {
-        return !this.tail;
-    }
 }
-let circular = new CircularLinkedList();
-circular.add(0);
-circular.removeAt(0);
-circular.printAllNode();
+let doubly = new DoublyLinkedList();
+doubly.add(0);
+doubly.shift();
+doubly.printAllNode();
 
 },{}]},["cAVq7","1YMiD"], "1YMiD", "parcelRequirecd2f")
 

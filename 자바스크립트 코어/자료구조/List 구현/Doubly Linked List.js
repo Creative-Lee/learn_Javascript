@@ -16,32 +16,32 @@ class DoublyLinkedList{
   addFirst(value){
     const newNode = new Node(value)
 
-    if(!this.head){
+    if(this.isEmpty()){
       this.head = newNode;
-      this.tail = newNode;
-      this.size++
-      return
+      this.tail = newNode;      
     }
-
-    newNode.next = this.head;
-    this.head.prev = newNode;
-    this.head = newNode;
+    else{
+      newNode.next = this.head;
+      this.head.prev = newNode;
+      this.head = newNode;
+    }
+    
     this.size++;    
   }
 
   add(value){
     const newNode = new Node(value)
 
-    if(!this.head){
+    if(this.isEmpty()){
       this.head = newNode;
-      this.tail = newNode;
-      this.size++
-      return
+      this.tail = newNode;     
     }
-
-    this.tail.next = newNode;
-    newNode.prev = this.tail
-    this.tail = newNode;
+    else{
+      this.tail.next = newNode;
+      newNode.prev = this.tail
+      this.tail = newNode;
+    }
+    
     this.size++;
   }
 
@@ -75,6 +75,11 @@ class DoublyLinkedList{
   }
 
   remove(value){
+    if(this.isEmpty()){
+      console.log('노드가 없습니다.')
+      return
+    }
+
     let currentNode = this.head;
     let indexOfValue = null;
 
@@ -96,7 +101,7 @@ class DoublyLinkedList{
   }
 
   removeAt(index){
-    if(this.size === 0){
+    if(this.isEmpty()){
       console.log('노드가 없습니다.')
       return
     }
@@ -108,11 +113,11 @@ class DoublyLinkedList{
       return
     }
 
-    if(index == 0){
+    if(index === 0){
       return this.shift();
     }
     
-    if(index == lastIndex){
+    if(index === lastIndex){
       return this.pop();
     }
 
@@ -130,7 +135,7 @@ class DoublyLinkedList{
   }
 
   shift(){
-    if(this.size === 0){
+    if(this.isEmpty()){
       console.log('노드가 없습니다.');
       return
     }
@@ -152,7 +157,7 @@ class DoublyLinkedList{
   }
 
   pop(){
-    if(this.size === 0){
+    if(this.isEmpty()){
       console.log('노드가 없습니다.');
       return
     }
@@ -197,7 +202,7 @@ class DoublyLinkedList{
       indexCount = lastIndex;
       currentNode = this.tail;
 
-      while(indexCount != index){
+      while(indexCount !== index){
         currentNode = currentNode.prev;
         indexCount--;
       }

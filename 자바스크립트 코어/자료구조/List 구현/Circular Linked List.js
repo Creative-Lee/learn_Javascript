@@ -116,9 +116,9 @@ class CircularLinkedList{
     if(index === lastIndex){ 
       return this.pop();
     }
-
-    let removedNode = this.get(index);
-    let beforeNode = this.get(index - 1);
+    
+    const removedNode = this.get(index);
+    const beforeNode = this.get(index - 1);
 
     beforeNode.next = removedNode.next;
     removedNode.next = null;
@@ -139,8 +139,7 @@ class CircularLinkedList{
       this.tail = null;      
     }
     else{
-      this.tail.next = deletedNode.next
-        
+      this.tail.next = deletedNode.next        
     }
 
     deletedNode.next = null;
@@ -156,18 +155,16 @@ class CircularLinkedList{
       return
     }
 
-    const deletedNode = this.tail;    
     const lastIndex = this.size - 1
+    const deletedNode = this.tail;    
     const beforeNode = this.get(lastIndex - 1)
 
     if(this.size === 1){
-      this.tail = null;      
-      
+      this.tail = null;
     }
     else{
       beforeNode.next = deletedNode.next;
-      this.tail = beforeNode;
-      
+      this.tail = beforeNode;      
     }
 
     deletedNode.next = null;
@@ -198,12 +195,11 @@ class CircularLinkedList{
     if(this.isEmpty()){
       console.log('노드가 없습니다.');
       return
-    }
+    }   
     
-    const lastIndex = this.size - 1
-    const currentNode = this.tail.next;
+    let currentNode = this.tail.next;
 
-    for(let i = 0; i < lastIndex; i++){
+    for(let i = 0; i < this.size; i++){
       console.log(currentNode)
       currentNode = currentNode.next;
     } 
@@ -218,8 +214,11 @@ class CircularLinkedList{
 
 }
 
-let circular = new CircularLinkedList();
+const circular = new CircularLinkedList();
 
 circular.add(0)
 circular.removeAt(0)
+circular.add(0)
+circular.add(1)
+circular.add(2)
 circular.printAllNode()

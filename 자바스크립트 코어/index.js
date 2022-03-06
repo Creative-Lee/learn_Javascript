@@ -1,55 +1,57 @@
 class Node{
   constructor(value){
     this.value = value;
+    this.prev = null;
     this.next = null;
   }
 }
 
-class CircularLinkedList{
-  constructor(){    
+class DoublyLinkedList{
+  constructor(){
+    this.head = null;
     this.tail = null;
     this.size = 0;
   }
 
   addFirst(value){
-    const newNode = new Node(value);
+    const newNode = new Node(value)
 
-    if(this.isEmpty()){      
-      this.tail = newNode;
-      newNode.next = newNode;
+    if(this.isEmpty()){
+      this.head = newNode;
+      this.tail = newNode;      
     }
     else{
-      newNode.next = this.tail.next;   
-      this.tail.next = newNode;   
-    }
-
-    this.size++;
-  }
-  
-  add(value){
-    const newNode = new Node(value);
-
-    if(this.isEmpty()){     
-      this.tail = newNode;    
-      newNode.next = newNode;  
-    }
-    else{
-      newNode.next = this.tail.next;
-      this.tail.next = newNode;
-      this.tail = newNode;
+      newNode.next = this.head;
+      this.head.prev = newNode;
+      this.head = newNode;
     }
     
     this.size++;    
   }
 
-  addAt(value,index){
+  add(value){
+    const newNode = new Node(value)
+
+    if(this.isEmpty()){
+      this.head = newNode;
+      this.tail = newNode;     
+    }
+    else{
+      this.tail.next = newNode;
+      newNode.prev = this.tail
+      this.tail = newNode;
+    }
     
+    this.size++;
+  }
+
+  addAt(value,index){
     const lastIndex = this.size;
 
     if(index < 0 || index > lastIndex){
-      console.log(`index의 범위는 0~${lastIndex} 입니다.`)
+      console.log(`index의 범위는 0~${lastIndex} 입니다.`);
       return
-    }   
+    }
 
     if(index === 0){
       this.addFirst(value);
@@ -63,20 +65,22 @@ class CircularLinkedList{
     
     const newNode = new Node(value);
     const currentNode = this.get(index);
-    const beforeNode = this.get(index - 1);
+    const beforeNode = currentNode.prev;
 
     beforeNode.next = newNode;
     newNode.next = currentNode;
+    currentNode.prev = newNode;
+    newNode.prev = beforeNode;
     this.size++;
   }
 
   remove(value){
     if(this.isEmpty()){
-      console.log('노드가 없습니다.');
+      console.log('노드가 없습니다.')
       return
     }
-    
-    let currentNode = this.tail.next;
+
+    let currentNode = this.head;
     let indexOfValue = null;
 
     for(let i = 0; i < this.size; i++){
@@ -89,42 +93,45 @@ class CircularLinkedList{
     }
 
     if(indexOfValue === null){
-      console.log(`${value}를 찾을 수 없습니다.`)
+      console.log(`${value}를 찾을 수 없습니다.`);
       return
     }
 
     this.removeAt(indexOfValue);
   }
-  
+
   removeAt(index){
     if(this.isEmpty()){
-      console.log('노드가 없습니다.');
+      console.log('노드가 없습니다.')
       return
     }
 
     const lastIndex = this.size - 1;
 
     if(index < 0 || index > lastIndex){
-      console.log(`index의 범위는 0~${lastIndex} 입니다.`)
+      console.log(`index의 범위는 0~${lastIndex} 입니다.`);
       return
     }
 
     if(index === 0){
       return this.shift();
     }
-
-    if(index === lastIndex){ 
+    
+    if(index === lastIndex){
       return this.pop();
     }
 
-    let removedNode = this.get(index);
-    let beforeNode = this.get(index - 1);
+    const removedNode = this.get(index);
+    const beforeNode = removedNode.prev;
+    const afterNode = removedNode.next;
 
-    beforeNode.next = removedNode.next;
+    beforeNode.next = afterNode;
+    afterNode.prev = beforeNode;
+    removedNode.prev = null;
     removedNode.next = null;
     this.size--;
 
-    return removedNode
+    return removedNode;
   }
 
   shift(){
@@ -132,23 +139,22 @@ class CircularLinkedList{
       console.log('노드가 없습니다.');
       return
     }
+    
+    const deletedNode = this.head;
 
-    const deletedNode = this.tail.next;
-
-    if(this.size === 1){      
-      this.tail = null;      
+    if(this.size === 1){
+      this.head = null;
+      this.tail = null;  
     }
     else{
-      this.tail.next = deletedNode.next
-        
+      this.head = this.head.next;
+      this.head.prev = null;
+      deletedNode.next = null;      
     }
-
-    deletedNode.next = null;
+    
     this.size--;
     return deletedNode;
   }
-
-  
 
   pop(){
     if(this.isEmpty()){
@@ -156,22 +162,19 @@ class CircularLinkedList{
       return
     }
 
-    const deletedNode = this.tail;    
-    const lastIndex = this.size - 1
-    const beforeNode = this.get(lastIndex - 1)
+    const deletedNode = this.tail;
 
     if(this.size === 1){
-      this.tail = null;      
-      
+      this.head = null;
+      this.tail = null;  
     }
     else{
-      beforeNode.next = deletedNode.next;
-      this.tail = beforeNode;
-      
+      this.tail = this.tail.prev;
+      this.tail.next = null;
+      deletedNode.prev = null;      
     }
-
-    deletedNode.next = null;
-    this.size --;
+    
+    this.size--;
     return deletedNode;
   }
 
@@ -183,43 +186,58 @@ class CircularLinkedList{
       return
     }
 
-    let indexCount = 0;
-    let currentNode = this.tail.next;
+    let currentNode;
+    let indexCount;
 
-    while(indexCount !== index){
-      currentNode = currentNode.next;
-      indexCount++;
+    if(index <= (lastIndex / 2)){
+      indexCount = 0;
+      currentNode = this.head;
+
+      while(indexCount !== index){
+        currentNode = currentNode.next;
+        indexCount++;
+      }    
     }
-  
+    else{
+      indexCount = lastIndex;
+      currentNode = this.tail;
+
+      while(indexCount !== index){
+        currentNode = currentNode.prev;
+        indexCount--;
+      }
+    }
+    
     return currentNode;
   }
+
+  isEmpty(){
+    return !this.head
+  }
+
 
   printAllNode(){
     if(this.isEmpty()){
       console.log('노드가 없습니다.');
       return
-    }
-    
-    const lastIndex = this.size - 1
-    const currentNode = this.tail.next;
-
-    for(let i = 0; i < lastIndex; i++){
-      console.log(currentNode)
-      currentNode = currentNode.next;
     } 
 
+    let currentNode = this.head;
+
+    while(currentNode !== null){
+      console.log(currentNode);
+      currentNode = currentNode.next;
+    }
+
+    console.log('headNode: ',this.head)
     console.log('tailNode: ',this.tail)
     console.log(`size: ${this.size}`)
   }
-
-  isEmpty(){
-    return !this.tail
-  }
-
 }
 
-let circular = new CircularLinkedList();
+let doubly = new DoublyLinkedList();
+doubly.add(0)
+doubly.shift()
 
-circular.add(0)
-circular.removeAt(0)
-circular.printAllNode()
+doubly.printAllNode()
+
