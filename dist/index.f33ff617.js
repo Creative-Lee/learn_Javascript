@@ -462,11 +462,10 @@ function hmrAcceptRun(bundle, id) {
 class Node {
     constructor(value){
         this.value = value;
-        this.prev = null;
         this.next = null;
     }
 }
-class DoublyLinkedList {
+class LinkedList {
     constructor(){
         this.head = null;
         this.tail = null;
@@ -479,7 +478,6 @@ class DoublyLinkedList {
             this.tail = newNode;
         } else {
             newNode.next = this.head;
-            this.head.prev = newNode;
             this.head = newNode;
         }
         this.size++;
@@ -491,7 +489,6 @@ class DoublyLinkedList {
             this.tail = newNode;
         } else {
             this.tail.next = newNode;
-            newNode.prev = this.tail;
             this.tail = newNode;
         }
         this.size++;
@@ -511,13 +508,9 @@ class DoublyLinkedList {
             return;
         }
         const newNode = new Node(value3);
-        const currentNode = this.get(index);
-        const beforeNode = currentNode.prev;
+        const beforeNode = this.get(index - 1);
+        newNode.next = beforeNode.next;
         beforeNode.next = newNode;
-        newNode.next = currentNode;
-        currentNode.prev = newNode;
-        newNode.prev = beforeNode;
-        this.size++;
     }
     remove(value4) {
         if (this.isEmpty()) {
@@ -549,51 +542,48 @@ class DoublyLinkedList {
             console.log(`index의 범위는 0~${lastIndex} 입니다.`);
             return;
         }
-        if (index1 === 0) return this.shift();
-        if (index1 === lastIndex) return this.pop();
+        if (index1 === 0) return this.removeFisrt();
+        if (index1 === lastIndex) return this.removeLast();
         const removedNode = this.get(index1);
-        const beforeNode = removedNode.prev;
-        const afterNode = removedNode.next;
-        beforeNode.next = afterNode;
-        afterNode.prev = beforeNode;
-        removedNode.prev = null;
+        const beforeNode = this.get(index1 - 1);
+        beforeNode.next = removedNode.next;
         removedNode.next = null;
-        this.size--;
         return removedNode;
     }
-    shift() {
+    removeFisrt() {
         if (this.isEmpty()) {
             console.log('노드가 없습니다.');
             return;
         }
-        const deletedNode = this.head;
+        const removedNode = this.head;
         if (this.size === 1) {
             this.head = null;
             this.tail = null;
         } else {
             this.head = this.head.next;
-            this.head.prev = null;
-            deletedNode.next = null;
+            removedNode.next = null;
         }
         this.size--;
-        return deletedNode;
+        return removedNode;
     }
-    pop() {
+    removeLast() {
         if (this.isEmpty()) {
             console.log('노드가 없습니다.');
             return;
         }
-        const deletedNode = this.tail;
+        const removedNode = this.tail;
         if (this.size === 1) {
             this.head = null;
             this.tail = null;
         } else {
-            this.tail = this.tail.prev;
-            this.tail.next = null;
-            deletedNode.prev = null;
+            const lastIndex = this.size - 1;
+            const beforeNode = this.get(lastIndex - 1);
+            beforeNode.next = null;
+            this.tail = beforeNode;
+            removedNode.next = null;
         }
         this.size--;
-        return deletedNode;
+        return removedNode;
     }
     get(index2) {
         const lastIndex = this.size - 1;
@@ -601,22 +591,13 @@ class DoublyLinkedList {
             console.log(`index의 범위는 0~${lastIndex} 입니다.`);
             return;
         }
-        let currentNode;
-        let indexCount;
-        if (index2 <= lastIndex / 2) {
-            indexCount = 0;
-            currentNode = this.head;
-            while(indexCount !== index2){
-                currentNode = currentNode.next;
-                indexCount++;
-            }
-        } else {
-            indexCount = lastIndex;
-            currentNode = this.tail;
-            while(indexCount !== index2){
-                currentNode = currentNode.prev;
-                indexCount--;
-            }
+        if (index2 === 0) return this.head;
+        if (index2 === lastIndex) return this.tail;
+        let currentNode = this.head;
+        let indexCount = 0;
+        while(indexCount !== index2){
+            currentNode = currentNode.next;
+            indexCount++;
         }
         return currentNode;
     }
@@ -640,16 +621,19 @@ class DoublyLinkedList {
 }
 class Stack {
     constructor(){
-        this.list = new DoublyLinkedList();
+        this.list = new LinkedList();
     }
     push(value5) {
         this.list.add(value5);
     }
     pop() {
-        return this.list.pop();
+        return this.list.removeLast();
     }
     peek() {
         return this.list.tail;
+    }
+    isEmpty() {
+        return this.list.isEmpty();
     }
 }
 const stack = new Stack();

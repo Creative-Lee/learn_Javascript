@@ -133,18 +133,18 @@ class CircularLinkedList{
       return
     }
 
-    const deletedNode = this.tail.next;
+    const removedNode = this.tail.next;
 
     if(this.size === 1){      
       this.tail = null;      
     }
     else{
-      this.tail.next = deletedNode.next        
+      this.tail.next = removedNode.next        
     }
 
-    deletedNode.next = null;
+    removedNode.next = null;
     this.size--;
-    return deletedNode;
+    return removedNode;
   }
 
   
@@ -155,21 +155,22 @@ class CircularLinkedList{
       return
     }
 
-    const lastIndex = this.size - 1
-    const deletedNode = this.tail;    
-    const beforeNode = this.get(lastIndex - 1)
+    const removedNode = this.tail;    
 
     if(this.size === 1){
       this.tail = null;
     }
     else{
-      beforeNode.next = deletedNode.next;
+      const lastIndex = this.size - 1
+      const beforeNode = this.get(lastIndex - 1)
+
+      beforeNode.next = removedNode.next;
       this.tail = beforeNode;      
     }
 
-    deletedNode.next = null;
+    removedNode.next = null;
     this.size --;
-    return deletedNode;
+    return removedNode;
   }
 
   get(index){
