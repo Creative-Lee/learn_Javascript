@@ -465,25 +465,14 @@ class Node {
         this.next = null;
     }
 }
-class LinkedList {
+class Queue {
     constructor(){
         this.head = null;
         this.tail = null;
         this.size = 0;
     }
-    addFirst(value1) {
+    enQueue(value1) {
         const newNode = new Node(value1);
-        if (this.isEmpty()) {
-            this.head = newNode;
-            this.tail = newNode;
-        } else {
-            newNode.next = this.head;
-            this.head = newNode;
-        }
-        this.size++;
-    }
-    add(value2) {
-        const newNode = new Node(value2);
         if (this.isEmpty()) {
             this.head = newNode;
             this.tail = newNode;
@@ -493,152 +482,13 @@ class LinkedList {
         }
         this.size++;
     }
-    addAt(value3, index) {
-        const lastIndex = this.size;
-        if (index < 0 || index > lastIndex) {
-            console.log(`index의 범위는 0~${lastIndex} 입니다.`);
-            return;
-        }
-        if (index === 0) {
-            this.addFirst(value3);
-            return;
-        }
-        if (index === lastIndex) {
-            this.add(value3);
-            return;
-        }
-        const newNode = new Node(value3);
-        const beforeNode = this.get(index - 1);
-        newNode.next = beforeNode.next;
-        beforeNode.next = newNode;
-    }
-    remove(value4) {
-        if (this.isEmpty()) {
-            console.log('노드가 없습니다.');
-            return;
-        }
-        let currentNode = this.head;
-        let indexOfValue = null;
-        for(let i = 0; i < this.size; i++){
-            if (currentNode.value == value4) {
-                indexOfValue = i;
-                break;
-            }
-            currentNode = currentNode.next;
-        }
-        if (indexOfValue === null) {
-            console.log(`${value4}를 찾을 수 없습니다.`);
-            return;
-        }
-        this.removeAt(indexOfValue);
-    }
-    removeAt(index1) {
-        if (this.isEmpty()) {
-            console.log('노드가 없습니다.');
-            return;
-        }
-        const lastIndex = this.size - 1;
-        if (index1 < 0 || index1 > lastIndex) {
-            console.log(`index의 범위는 0~${lastIndex} 입니다.`);
-            return;
-        }
-        if (index1 === 0) return this.removeFirst();
-        if (index1 === lastIndex) return this.removeLast();
-        const removedNode = this.get(index1);
-        const beforeNode = this.get(index1 - 1);
-        beforeNode.next = removedNode.next;
-        removedNode.next = null;
-        return removedNode;
-    }
-    removeFirst() {
-        if (this.isEmpty()) {
-            console.log('노드가 없습니다.');
-            return;
-        }
-        const removedNode = this.head;
-        if (this.size === 1) {
-            this.head = null;
-            this.tail = null;
-        } else {
-            this.head = this.head.next;
-            removedNode.next = null;
-        }
-        this.size--;
-        return removedNode;
-    }
-    removeLast() {
-        if (this.isEmpty()) {
-            console.log('노드가 없습니다.');
-            return;
-        }
-        const removedNode = this.tail;
-        if (this.size === 1) {
-            this.head = null;
-            this.tail = null;
-        } else {
-            const lastIndex = this.size - 1;
-            const beforeNode = this.get(lastIndex - 1);
-            beforeNode.next = null;
-            this.tail = beforeNode;
-            removedNode.next = null;
-        }
-        this.size--;
-        return removedNode;
-    }
-    get(index2) {
-        const lastIndex = this.size - 1;
-        if (index2 < 0 || index2 > lastIndex) {
-            console.log(`index의 범위는 0~${lastIndex} 입니다.`);
-            return;
-        }
-        if (index2 === 0) return this.head;
-        if (index2 === lastIndex) return this.tail;
-        let currentNode = this.head;
-        let indexCount = 0;
-        while(indexCount !== index2){
-            currentNode = currentNode.next;
-            indexCount++;
-        }
-        return currentNode;
+    deQueue() {
+        this.size;
     }
     isEmpty() {
-        return !this.head;
-    }
-    printAllNode() {
-        if (this.isEmpty()) {
-            console.log('노드가 없습니다.');
-            return;
-        }
-        let currentNode = this.head;
-        while(currentNode !== null){
-            console.log(currentNode);
-            currentNode = currentNode.next;
-        }
-        console.log('headNode: ', this.head);
-        console.log('tailNode: ', this.tail);
-        console.log(`size: ${this.size}`);
+        this.head;
     }
 }
-class Queue {
-    constructor(){
-        this.list = new LinkedList();
-    }
-    enQueue(value5) {
-        this.list.add(value5);
-    }
-    deQueue() {
-        return this.list.removeFirst();
-    }
-    peek() {
-        return this.list.head;
-    }
-}
-const queue = new Queue();
-queue.enQueue(0);
-queue.enQueue(1);
-queue.enQueue(2);
-queue.deQueue();
-console.log(queue.peek());
 
 },{}]},["cAVq7","1YMiD"], "1YMiD", "parcelRequirecd2f")
 
