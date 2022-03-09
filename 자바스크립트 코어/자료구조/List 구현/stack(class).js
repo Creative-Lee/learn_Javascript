@@ -104,7 +104,7 @@ class LinkedList{
     }
     
     if(index === 0){
-      return this.removeFisrt();
+      return this.removeFirst();
     }
     
     if(index === lastIndex){
@@ -120,7 +120,7 @@ class LinkedList{
     return removedNode
   }
 
-  removeFisrt(){
+  removeFirst(){
     if(this.isEmpty()){
       console.log('노드가 없습니다.');
       return

@@ -542,7 +542,7 @@ class LinkedList {
             console.log(`index의 범위는 0~${lastIndex} 입니다.`);
             return;
         }
-        if (index1 === 0) return this.removeFisrt();
+        if (index1 === 0) return this.removeFirst();
         if (index1 === lastIndex) return this.removeLast();
         const removedNode = this.get(index1);
         const beforeNode = this.get(index1 - 1);
@@ -550,7 +550,7 @@ class LinkedList {
         removedNode.next = null;
         return removedNode;
     }
-    removeFisrt() {
+    removeFirst() {
         if (this.isEmpty()) {
             console.log('노드가 없습니다.');
             return;
@@ -619,32 +619,26 @@ class LinkedList {
         console.log(`size: ${this.size}`);
     }
 }
-class Stack {
+class Queue {
     constructor(){
         this.list = new LinkedList();
     }
-    push(value5) {
+    enQueue(value5) {
         this.list.add(value5);
     }
-    pop() {
-        return this.list.removeLast();
+    deQueue() {
+        return this.list.removeFirst();
     }
     peek() {
-        return this.list.tail;
-    }
-    isEmpty() {
-        return this.list.isEmpty();
+        return this.list.head;
     }
 }
-const stack = new Stack();
-stack.push(0);
-stack.push(1);
-stack.push(2);
-stack.pop();
-stack.pop();
-stack.pop();
-console.log(stack);
-console.log(stack.list);
+const queue = new Queue();
+queue.enQueue(0);
+queue.enQueue(1);
+queue.enQueue(2);
+queue.deQueue();
+console.log(queue.peek());
 
 },{}]},["cAVq7","1YMiD"], "1YMiD", "parcelRequirecd2f")
 
