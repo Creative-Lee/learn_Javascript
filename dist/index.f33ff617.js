@@ -483,12 +483,47 @@ class Queue {
         this.size++;
     }
     deQueue() {
-        this.size;
+        if (this.isEmpty()) {
+            console.log('큐가 비었습니다.');
+            return;
+        }
+        const deletedNode = this.head;
+        if (this.size === 1) {
+            this.head = null;
+            this.tail = null;
+        } else this.head = this.head.next;
+        this.size--;
+        return deletedNode;
+    }
+    peek() {
+        return this.head;
     }
     isEmpty() {
-        this.head;
+        return !this.head;
+    }
+    printAllNode() {
+        if (this.isEmpty()) {
+            console.log('큐가 비었습니다.');
+            return;
+        }
+        let currentNode = this.head;
+        while(currentNode !== null){
+            console.log(currentNode);
+            currentNode = currentNode.next;
+        }
+        console.log('headNode: ', this.head);
+        console.log('tailNode: ', this.tail);
+        console.log(`size: ${this.size}`);
     }
 }
+const queue = new Queue();
+queue.enQueue(0);
+queue.enQueue(1);
+queue.enQueue(2);
+queue.deQueue();
+queue.deQueue();
+queue.deQueue();
+console.log(queue.peek());
 
 },{}]},["cAVq7","1YMiD"], "1YMiD", "parcelRequirecd2f")
 
