@@ -1,16 +1,15 @@
-var x = 'xxx';
-var z = 'zzz';
+// Define a variable in the global scope:
+const fullName = "Oluwatobi Sofela";
 
-function foo () {
-  var y = 'yyy';   
-  
-  function bar () {
-    var z = 'zzz';    
+// Define nested functions:
+function profile() {
+  function sayName() {
+    function writeName() {
+      return fullName;
+    }
+    
+    return writeName();
   }
-
-  bar();
-
-  console.log(x + y + z);
+  
+  return sayName();
 }
-
-foo();
