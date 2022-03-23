@@ -1,15 +1,6 @@
-// Define a variable in the global scope:
-const fullName = "Oluwatobi Sofela";
+let [firstName, lastName, age, ...etc] = ['Dohyeon', 'Lee', 27, '나머지는', '전부', 'etc에', '들어가요']
 
-// Define nested functions:
-function profile() {
-  function sayName() {
-    function writeName() {
-      return fullName;
-    }
-    
-    return writeName();
-  }
-  
-  return sayName();
-}
+console.log(firstName) // 'Dohyeon'
+console.log(lastName) // 'Lee'
+console.log(age)  // 27
+console.log(etc)  // ['나머지는', '전부', 'etc에', '들어가요']
