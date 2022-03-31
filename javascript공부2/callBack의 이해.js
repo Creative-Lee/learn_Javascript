@@ -2,7 +2,7 @@
   class UserStorage {
     loginUser(id,pw,onSuccess,onError) {
       setTimeout(()=>{
-        if((id==='ellie'&& pw === 'dream')||(id==='coder'&& pw ==='academy')){
+        if((id === 'ellie' && pw === 'dream')||(id === 'coder' && pw ==='academy')){
           onSuccess(id);
         }
         else{
@@ -12,7 +12,7 @@
 
     getRoles(user,onSuccess,onError) {
       setTimeout(()=>{
-        if(user==='ellie'){
+        if(user ==='ellie'){
           onSuccess({name:"ellie", role: 'admin'})
         }
         else{

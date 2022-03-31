@@ -11,6 +11,7 @@ const numberChecker = () =>
   },3000)
 })
 
+
 const welcome = () => 
 new Promise((resolve, reject)=>{      
 console.log("welcome Promise입니다! 3초뒤에 서버로부터 msg를 받아와 출력합니다!")
