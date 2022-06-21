@@ -1,27 +1,29 @@
-class User {
-  constructor(name){
-    this.name = name
+class Article {
+  static staticProp = 'staticProp';
+  static staticMethod (){
+    return 'staticMethod';
   }
 
-  hi(){
-    console.log(`hello ${this.name}`)
+  fieldProp = 'fieldProp'
+  fieldMethod = () =>{
+    return 'fieldMethod';
   }
 
-  classFieldHi = () =>{  // class field 
-    console.log(`hello ${this.name}`)
+  constructor(){
+    this.constructorProp = 'constructorProp';
+  }
+
+  classMethod(){
+    return 'classMethod';
   }
 }
 
-let user1 = new User('Bob');
+let article = new Article()
 
-console.log(User.prototype) // { constructor: ƒ, hi: ƒ }
-console.log(user1) // { name: 'Bob', classFieldHi: ƒ }
+console.log( Article.staticProp ) // {constructor: ƒ, classMethod: ƒ}
+console.log( article )
 
-setTimeout(user1.hi, 1000) // hello 
-// 위 경우에는 this는 window 입니다.
-// window.name 은 존재하지 않습니다.
-
-setTimeout(user1.classFieldHi, 1000) // hello Bob
-// classFieldHi = () => { ... } 은 각 인스턴스에 독립적인 함수를 만듭니다.
-// 함수의 this를 class 객체에 바인딩시켜줍니다.
-// 원하는 결과를 얻을 수 있습니다.
+console.log( Article.prototype.constructor === Article )
+// fieldProp: 'fieldProp', 
+// fieldMethod: ƒ
+// constructorProp: 'constructorProp',
