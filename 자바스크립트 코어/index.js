@@ -1,29 +1,18 @@
-class Article {
-  static staticProp = 'staticProp';
-  static staticMethod (){
-    return 'staticMethod';
+class CoffeeMachine {
+  constructor(power) {
+    this._power = power;
   }
+  static waterAmount2 = 2
+  _waterAmount = 0;
+}
 
-  fieldProp = 'fieldProp'
-  fieldMethod = () =>{
-    return 'fieldMethod';
-  }
-
-  constructor(){
-    this.constructorProp = 'constructorProp';
-  }
-
-  classMethod(){
-    return 'classMethod';
+class MegaCoffeeMachine extends CoffeeMachine {
+  test(){
+    console.log(this._waterAmount)
   }
 }
 
-let article = new Article()
+let mega = new MegaCoffeeMachine(200)
 
-console.log( Article.staticProp ) // {constructor: ƒ, classMethod: ƒ}
-console.log( article )
-
-console.log( Article.prototype.constructor === Article )
-// fieldProp: 'fieldProp', 
-// fieldMethod: ƒ
-// constructorProp: 'constructorProp',
+console.log(MegaCoffeeMachine.__proto__ === CoffeeMachine);
+mega.test()
