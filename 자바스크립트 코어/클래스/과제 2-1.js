@@ -1,7 +1,6 @@
 class Animal {
-
   constructor(name) {
-    this.name = name;
+    this.nickname = name;
   }
 }
 
@@ -13,4 +12,4 @@ class Rabbit extends Animal {
 }
 
 let rabbit = new Rabbit("White Rabbit"); // Error: this is not defined
-alert(rabbit.name);
+console.log(rabbit.name);

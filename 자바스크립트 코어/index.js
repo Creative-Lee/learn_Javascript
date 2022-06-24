@@ -1,18 +1,10 @@
-class CoffeeMachine {
-  constructor(power) {
-    this._power = power;
-  }
-  static waterAmount2 = 2
-  _waterAmount = 0;
-}
 
-class MegaCoffeeMachine extends CoffeeMachine {
-  test(){
-    console.log(this._waterAmount)
+class User {
+  name = "보라";
+
+  foo(){
+    return 'hi'
   }
 }
 
-let mega = new MegaCoffeeMachine(200)
-
-console.log(MegaCoffeeMachine.__proto__ === CoffeeMachine);
-mega.test()
+console.log(new User().name)
