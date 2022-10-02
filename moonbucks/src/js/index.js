@@ -21,16 +21,16 @@ const store = {
 		localStorage.setItem('menu', JSON.stringify(menu))
 	},
 	getLocalStorage() {
-		localStorage.getItem('menu')
+		return JSON.parse(localStorage.getItem('menu'))
 	},
 }
 
 function App() {
-	// 갯수, 카드 타이틀의 종류명, placeholder 종류명, 종류별 메뉴리스트의 각 메뉴명
+	// 카드 타이틀의 종류명, placeholder 종류명, 종류별 메뉴리스트의 각 메뉴명
+	this.menuList = []
 
 	const updateMenuCount = () => {
-		const menuCount = $('#espresso-menu-list').querySelectorAll('li').length
-		$('.menu-count').innerText = `총 ${menuCount}개`
+		$('.menu-count').innerText = `총 ${this.menuList.length}개`
 	}
 
 	const addMenuName = () => {
@@ -39,9 +39,12 @@ function App() {
 			return
 		}
 
-		const $NEW_MENU_NAME = $('#espresso-menu-name').value
-		const menuItemTemplate = (menuItem) => {
-			return `
+		const newMenuName = $('#espresso-menu-name').value
+		this.menuList.push(newMenuName)
+		store.setLocalStorage(this.menuList)
+		const template = this.menuList
+			.map((menuItem) => {
+				return `
       <li class="menu-list-item d-flex items-center py-2">
       <span class="w-100 pl-2 menu-name">${menuItem}</span>
       <button
@@ -57,11 +60,10 @@ function App() {
         삭제
       </button>
       </li>`
-		}
-		$('#espresso-menu-list').insertAdjacentHTML(
-			'beforeend',
-			menuItemTemplate($NEW_MENU_NAME)
-		)
+			})
+			.join('')
+
+		$('#espresso-menu-list').innerHTML = template
 		updateMenuCount()
 		$('#espresso-menu-name').value = ''
 	}
@@ -105,4 +107,4 @@ function App() {
 		addMenuName()
 	})
 }
-App()
+new App()
