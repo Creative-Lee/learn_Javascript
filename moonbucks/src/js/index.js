@@ -5,6 +5,9 @@
 // - 품절 상태 메뉴의 마크업
 
 // localStorage에 메뉴 종류별 데이터 저장.
+// 삭제 o
+// 수정 o
+// 추가 o
 
 // 각 종료의 메뉴판 관리 기능
 
@@ -26,8 +29,39 @@ const store = {
 }
 
 function App() {
-	// 카드 타이틀의 종류명, placeholder 종류명, 종류별 메뉴리스트의 각 메뉴명
 	this.menuList = []
+	this.init = () => {
+		if (store.getLocalStorage().length) {
+			this.menuList = store.getLocalStorage()
+			render()
+		}
+	}
+
+	const render = () => {
+		const template = this.menuList
+			.map((menuItem, idx) => {
+				return `
+				<li id="${idx}" class="menu-list-item d-flex items-center py-2">
+				<span class="w-100 pl-2 menu-name">${menuItem}</span>
+				<button
+					type="button"
+					class="bg-gray-50 text-gray-500 text-sm mr-1 menu-edit-button"
+				>
+					수정
+				</button>
+				<button
+					type="button"
+					class="bg-gray-50 text-gray-500 text-sm menu-remove-button"
+				>
+					삭제
+				</button>
+				</li>`
+			})
+			.join('')
+
+		$('#espresso-menu-list').innerHTML = template
+		updateMenuCount()
+	}
 
 	const updateMenuCount = () => {
 		$('.menu-count').innerText = `총 ${this.menuList.length}개`
@@ -42,52 +76,41 @@ function App() {
 		const newMenuName = $('#espresso-menu-name').value
 		this.menuList.push(newMenuName)
 		store.setLocalStorage(this.menuList)
-		const template = this.menuList
-			.map((menuItem) => {
-				return `
-      <li class="menu-list-item d-flex items-center py-2">
-      <span class="w-100 pl-2 menu-name">${menuItem}</span>
-      <button
-        type="button"
-        class="bg-gray-50 text-gray-500 text-sm mr-1 menu-edit-button"
-      >
-        수정
-      </button>
-      <button
-        type="button"
-        class="bg-gray-50 text-gray-500 text-sm menu-remove-button"
-      >
-        삭제
-      </button>
-      </li>`
-			})
-			.join('')
-
-		$('#espresso-menu-list').innerHTML = template
-		updateMenuCount()
+		render()
 		$('#espresso-menu-name').value = ''
 	}
 
 	const editMenuName = (e) => {
+		const menuId = e.target.closest('li').id
 		const $MENU_NAME = e.target.closest('li').querySelector('.menu-name')
 		const editedMenuName = prompt(
 			'수정할 값을 적어주세요',
 			$MENU_NAME.innerText
 		)
 		if (editedMenuName) {
+			this.menuList[menuId] = editedMenuName
+			store.setLocalStorage(this.menuList)
 			$MENU_NAME.innerText = editedMenuName
 		}
 	}
 
 	const removeMenuName = (e) => {
+		const menuId = e.target.closest('li').id
 		if (confirm('정말 삭제할래요?')) {
+			this.menuList.splice(menuId, 1)
+			render()
+			store.setLocalStorage(this.menuList)
 			e.target.closest('li').remove()
-			updateMenuCount()
 		}
 	}
 
 	$('#espresso-menu-form').addEventListener('submit', (e) => {
 		e.preventDefault()
+	})
+
+	$('#espresso-menu-name').addEventListener('keypress', (e) => {
+		if (e.key !== 'Enter') return
+		addMenuName()
 	})
 
 	$('#espresso-menu-list').addEventListener('click', (e) => {
@@ -101,10 +124,5 @@ function App() {
 	})
 
 	$('#espresso-menu-submit-button').addEventListener('click', addMenuName)
-
-	$('#espresso-menu-name').addEventListener('keypress', (e) => {
-		if (e.key !== 'Enter') return
-		addMenuName()
-	})
 }
-new App()
+new App().init()
