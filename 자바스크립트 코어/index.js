@@ -1,18 +1,23 @@
-class CoffeeMachine {
-  constructor(power) {
-    this._power = power;
-  }
-  static waterAmount2 = 2
-  _waterAmount = 0;
-}
-
-class MegaCoffeeMachine extends CoffeeMachine {
-  test(){
-    console.log(this._waterAmount)
+let say ={
+  say(msg){
+    console.log(msg)
   }
 }
 
-let mega = new MegaCoffeeMachine(200)
+let sayHelloMixin = {
+  __proto__: say,
 
-console.log(MegaCoffeeMachine.__proto__ === CoffeeMachine);
-mega.test()
+  sayHello(){
+    super.say(`hello ${this.name}`)
+  }
+}
+
+class User {
+  constructor(name){
+    this.name = name;
+  }
+}
+
+Object.assign(User.prototype, sayHelloMixin);
+
+new User('Bob').sayHello(); // 'Hello Bob'
