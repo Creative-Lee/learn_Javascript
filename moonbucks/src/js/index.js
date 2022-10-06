@@ -16,33 +16,36 @@
 // 품절 버튼 클릭시 품절 상태값 로컬 스토리지에 업데이트
 // 풀절 버튼 클릭시 li태그에 `sold-out` class를 추가
 // 품절 상태 메뉴 마크업 변수화
-
-const $ = (selector) => document.querySelector(selector)
-
-const store = {
-	setLocalStorage(menu) {
-		localStorage.setItem('menu', JSON.stringify(menu))
-	},
-	getLocalStorage() {
-		return JSON.parse(localStorage.getItem('menu'))
-	},
-}
+import { $ } from './utils/dom.js'
+import store from './store/index.js'
 
 function App() {
-	this.menuList = []
+	this.menuList = {
+		espresso: [],
+		frappuccino: [],
+		blended: [],
+		teavana: [],
+		desert: [],
+	}
+	this.currentCategory = 'espresso'
+
 	this.init = () => {
-		if (store.getLocalStorage().length) {
+		if (store.getLocalStorage()) {
 			this.menuList = store.getLocalStorage()
-			render()
 		}
+		render()
+		initEventListeners()
 	}
 
 	const render = () => {
-		const template = this.menuList
+		const template = this.menuList[this.currentCategory]
 			.map((menuItem, idx) => {
 				return `
-				<li id="${idx}" class="menu-list-item d-flex items-center py-2">
-				<span class="w-100 pl-2 menu-name">${menuItem}</span>
+				<li data-menu-id="${idx}" class="menu-list-item d-flex items-center py-2 ">
+				<span class="w-100 pl-2 menu-name ${menuItem.soldOut ? 'sold-out' : ''}">${menuItem.menu}</span>
+				<button type="button" class="bg-gray-50 text-gray-500 text-sm mr-1 menu-sold-out-button">
+				품절
+				</button>
 				<button
 					type="button"
 					class="bg-gray-50 text-gray-500 text-sm mr-1 menu-edit-button"
@@ -59,70 +62,94 @@ function App() {
 			})
 			.join('')
 
-		$('#espresso-menu-list').innerHTML = template
+		$('#menu-list').innerHTML = template
 		updateMenuCount()
 	}
 
 	const updateMenuCount = () => {
-		$('.menu-count').innerText = `총 ${this.menuList.length}개`
+		const menuCount = this.menuList[this.currentCategory].length
+		$('.menu-count').innerText = `총 ${menuCount}개`
 	}
 
 	const addMenuName = () => {
-		if ($('#espresso-menu-name').value === '') {
+		if ($('#menu-name').value === '') {
 			alert('값을 입력하시오')
 			return
 		}
 
-		const newMenuName = $('#espresso-menu-name').value
-		this.menuList.push(newMenuName)
+		const newMenuName = $('#menu-name').value
+		this.menuList[this.currentCategory].push({ menu: newMenuName })
 		store.setLocalStorage(this.menuList)
 		render()
-		$('#espresso-menu-name').value = ''
+		$('#menu-name').value = ''
 	}
 
-	const editMenuName = (e) => {
-		const menuId = e.target.closest('li').id
+	const editMenuName = e => {
+		const menuId = e.target.closest('li').dataset.menuId
 		const $MENU_NAME = e.target.closest('li').querySelector('.menu-name')
-		const editedMenuName = prompt(
-			'수정할 값을 적어주세요',
-			$MENU_NAME.innerText
-		)
+		const editedMenuName = prompt('수정할 값을 적어주세요', $MENU_NAME.innerText)
 		if (editedMenuName) {
-			this.menuList[menuId] = editedMenuName
+			this.menuList[this.currentCategory][menuId].menu = editedMenuName
 			store.setLocalStorage(this.menuList)
-			$MENU_NAME.innerText = editedMenuName
-		}
-	}
-
-	const removeMenuName = (e) => {
-		const menuId = e.target.closest('li').id
-		if (confirm('정말 삭제할래요?')) {
-			this.menuList.splice(menuId, 1)
 			render()
-			store.setLocalStorage(this.menuList)
-			e.target.closest('li').remove()
 		}
 	}
 
-	$('#espresso-menu-form').addEventListener('submit', (e) => {
-		e.preventDefault()
-	})
-
-	$('#espresso-menu-name').addEventListener('keypress', (e) => {
-		if (e.key !== 'Enter') return
-		addMenuName()
-	})
-
-	$('#espresso-menu-list').addEventListener('click', (e) => {
-		if (e.target.classList.contains('menu-edit-button')) {
-			editMenuName(e)
+	const removeMenuName = e => {
+		const menuId = e.target.closest('li').dataset.menuId
+		if (confirm('정말 삭제할래요?')) {
+			this.menuList[this.currentCategory].splice(menuId, 1)
+			store.setLocalStorage(this.menuList)
+			render()
 		}
+	}
 
-		if (e.target.classList.contains('menu-remove-button')) {
-			removeMenuName(e)
-		}
-	})
+	const toggleSoldoutMenu = e => {
+		const menuId = e.target.closest('li').dataset.menuId
+		this.menuList[this.currentCategory][menuId].soldOut =
+			!this.menuList[this.currentCategory][menuId].soldOut
+		store.setLocalStorage(this.menuList)
+		render()
+	}
+	const initEventListeners = () => {
+		$('#menu-form').addEventListener('submit', e => {
+			e.preventDefault()
+		})
 
-	$('#espresso-menu-submit-button').addEventListener('click', addMenuName)
+		$('#menu-name').addEventListener('keypress', e => {
+			if (e.key !== 'Enter') return
+			addMenuName()
+		})
+
+		$('#menu-list').addEventListener('click', e => {
+			if (e.target.classList.contains('menu-sold-out-button')) {
+				toggleSoldoutMenu(e)
+				return
+			}
+
+			if (e.target.classList.contains('menu-edit-button')) {
+				editMenuName(e)
+				return
+			}
+
+			if (e.target.classList.contains('menu-remove-button')) {
+				removeMenuName(e)
+				return
+			}
+		})
+
+		$('#menu-submit-button').addEventListener('click', addMenuName)
+
+		$('.nav-menu').addEventListener('click', e => {
+			const isCategoryButton = e.target.classList.contains('cafe-category-name')
+			if (isCategoryButton) {
+				const categoryName = e.target.dataset.categoryName
+				this.currentCategory = categoryName
+				$('#category-title').innerText = `${e.target.innerText} 메뉴 관리`
+
+				render()
+			}
+		})
+	}
 }
 new App().init()
