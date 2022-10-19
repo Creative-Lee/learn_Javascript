@@ -10,14 +10,11 @@ class App {
 			e.preventDefault()
 		})
 
-		$('#menu-submit-button').addEventListener('click', e => {
-			this.addMenuName()
-		})
+		$('#menu-submit-button').addEventListener('click', () => this.addMenuName())
 
-		$('#menu-name').addEventListener('keypress', e => {
-			if (e.key === 'Enter') {
-				this.addMenuName()
-			}
+		$('#menu-name').addEventListener('keypress', ({ key }) => {
+			if (key !== 'Enter') return
+			this.addMenuName()
 		})
 
 		$('#menu-list').addEventListener('click', ({ target }) => {
@@ -57,6 +54,7 @@ class App {
 
 		$('#menu-list').insertAdjacentHTML('beforeend', this.getMenuItemTemplit(menuName))
 		$('#menu-name').value = ''
+		this.updateMenuCount()
 	}
 	updateMenuName(target) {
 		const $menuName = target.closest('li').querySelector('.menu-name')
@@ -68,7 +66,13 @@ class App {
 	removeMenuName(target) {
 		if (confirm('삭제할래요?')) {
 			target.closest('li').remove()
+			this.updateMenuCount()
 		}
+	}
+
+	updateMenuCount() {
+		const menuCount = $('#menu-list').children.length
+		$('.menu-count').innerText = `총 ${menuCount}개`
 	}
 }
 
