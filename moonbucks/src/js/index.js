@@ -12,9 +12,17 @@ class App {
 		}
 		this.currentMenuCategory = 'espresso'
 		this.init()
-		this.initEvent()
 	}
-	initEvent() {
+
+	init() {
+		const cafeMenuData = store.getLocalStorage()
+		if (cafeMenuData) {
+			this.cafeMenu = cafeMenuData
+		}
+		this.render()
+		this.initEventListeners()
+	}
+	initEventListeners() {
 		$('#menu-form').addEventListener('submit', e => {
 			e.preventDefault()
 		})
@@ -27,6 +35,10 @@ class App {
 		})
 
 		$('#menu-list').addEventListener('click', ({ target }) => {
+			if (target.classList.contains('menu-sold-out-button')) {
+				this.toggleSoldout(target)
+				return
+			}
 			if (target.classList.contains('menu-edit-button')) {
 				this.updateMenuName(target)
 				return
@@ -37,28 +49,21 @@ class App {
 		})
 
 		$('.nav-menu').addEventListener('click', ({ target }) => {
-			const isCategoryButton = target.classList.contains('cafe-category-name')
-			if (isCategoryButton) {
-				const categoryName = target.dataset.categoryName
-				this.currentMenuCategory = categoryName
-				$('#category-title').innerText = `${target.innerText} 메뉴 관리`
-				this.render()
-			}
+			this.changeCategory(target)
 		})
-	}
-	init() {
-		const cafeMenuData = store.getLocalStorage()
-		if (cafeMenuData) {
-			this.cafeMenu = cafeMenuData
-		}
-		this.render()
 	}
 	render() {
 		const template = this.cafeMenu[this.currentMenuCategory]
 			.map((menu, idx) => {
 				return `
 				<li data-list-id='${idx}' class="menu-list-item d-flex items-center py-2">
-				<span class="w-100 pl-2 menu-name">${menu.name}</span>
+				<span class="w-100 pl-2 menu-name ${menu.soldOut ? 'sold-out' : ''}">${menu.name}</span>
+				<button
+				type="button"
+				class="bg-gray-50 text-gray-500 text-sm mr-1 menu-sold-out-button"
+				>
+					품절
+				</button>
 				<button
 				type="button"
 				class="bg-gray-50 text-gray-500 text-sm mr-1 menu-edit-button"
@@ -75,8 +80,10 @@ class App {
 			})
 			.join('')
 		$('#menu-list').innerHTML = template
-		$('.menu-count').innerText = `총 ${this.cafeMenu[this.currentMenuCategory].length}개`
+		const menuCount = this.cafeMenu[this.currentMenuCategory].length
+		$('.menu-count').innerText = `총 ${menuCount}개`
 	}
+
 	addMenuName() {
 		const menuName = $('#menu-name').value
 		if (!menuName) {
@@ -102,6 +109,22 @@ class App {
 			const targetListId = target.closest('li').dataset.listId
 			this.cafeMenu[this.currentMenuCategory].splice(targetListId, 1)
 			store.setLocalStorage(this.cafeMenu)
+			this.render()
+		}
+	}
+	toggleSoldout(target) {
+		const targetMenuListId = target.closest('li').dataset.listId
+		this.cafeMenu[this.currentMenuCategory][targetMenuListId].soldOut =
+			!this.cafeMenu[this.currentMenuCategory][targetMenuListId].soldOut
+		store.setLocalStorage(this.cafeMenu)
+		this.render()
+	}
+	changeCategory(target) {
+		const isCategoryButton = target.classList.contains('cafe-category-name')
+		if (isCategoryButton) {
+			const categoryName = target.dataset.categoryName
+			this.currentMenuCategory = categoryName
+			$('#category-title').innerText = `${target.innerText} 메뉴 관리`
 			this.render()
 		}
 	}
