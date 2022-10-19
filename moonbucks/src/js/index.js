@@ -3,7 +3,14 @@ import store from './store/index.js'
 
 class App {
 	constructor() {
-		this.cafeMenu = []
+		this.cafeMenu = {
+			espresso: [],
+			frappuccino: [],
+			blended: [],
+			teavana: [],
+			desert: [],
+		}
+		this.currentMenuCategory = 'espresso'
 		this.init()
 		this.initEvent()
 	}
@@ -28,16 +35,26 @@ class App {
 				this.removeMenuName(target)
 			}
 		})
+
+		$('.nav-menu').addEventListener('click', ({ target }) => {
+			const isCategoryButton = target.classList.contains('cafe-category-name')
+			if (isCategoryButton) {
+				const categoryName = target.dataset.categoryName
+				this.currentMenuCategory = categoryName
+				$('#category-title').innerText = `${target.innerText} 메뉴 관리`
+				this.render()
+			}
+		})
 	}
 	init() {
 		const cafeMenuData = store.getLocalStorage()
-		if (cafeMenuData && cafeMenuData.length) {
+		if (cafeMenuData) {
 			this.cafeMenu = cafeMenuData
 		}
 		this.render()
 	}
 	render() {
-		const template = this.cafeMenu
+		const template = this.cafeMenu[this.currentMenuCategory]
 			.map((menu, idx) => {
 				return `
 				<li data-list-id='${idx}' class="menu-list-item d-flex items-center py-2">
@@ -58,7 +75,7 @@ class App {
 			})
 			.join('')
 		$('#menu-list').innerHTML = template
-		$('.menu-count').innerText = `총 ${this.cafeMenu.length}개`
+		$('.menu-count').innerText = `총 ${this.cafeMenu[this.currentMenuCategory].length}개`
 	}
 	addMenuName() {
 		const menuName = $('#menu-name').value
@@ -66,17 +83,16 @@ class App {
 			alert('입력 없음')
 			return
 		}
-		this.cafeMenu.push({ name: menuName })
+		this.cafeMenu[this.currentMenuCategory].push({ name: menuName })
 		store.setLocalStorage(this.cafeMenu)
 		this.render()
 		$('#menu-name').value = ''
 	}
 	updateMenuName(target) {
-		const $menuName = target.closest('li').querySelector('.menu-name')
 		const targetListId = target.closest('li').dataset.listId
-		const updatedMenuName = prompt('수정할 메뉴 이름을 입력하세요', $menuName.innerText)
+		const updatedMenuName = prompt('수정할 메뉴 이름을 입력하세요', target.closest('li').querySelector('.menu-name').innerText)
 		if (updatedMenuName) {
-			this.cafeMenu[targetListId].name = updatedMenuName
+			this.cafeMenu[this.currentMenuCategory][targetListId].name = updatedMenuName
 			store.setLocalStorage(this.cafeMenu)
 			this.render()
 		}
@@ -84,7 +100,7 @@ class App {
 	removeMenuName(target) {
 		if (confirm('삭제할래요?')) {
 			const targetListId = target.closest('li').dataset.listId
-			this.cafeMenu.splice(targetListId, 1)
+			this.cafeMenu[this.currentMenuCategory].splice(targetListId, 1)
 			store.setLocalStorage(this.cafeMenu)
 			this.render()
 		}
