@@ -25,6 +25,9 @@ class App {
 				this.updateMenuName(target)
 				return
 			}
+			if (target.classList.contains('menu-remove-button')) {
+				this.removeMenuName(target)
+			}
 		})
 	}
 
@@ -60,6 +63,11 @@ class App {
 		const updatedMenuName = prompt('수정할 메뉴 이름을 입력하세요', $menuName.innerText)
 		if (updatedMenuName) {
 			$menuName.innerText = updatedMenuName
+		}
+	}
+	removeMenuName(target) {
+		if (confirm('삭제할래요?')) {
+			target.closest('li').remove()
 		}
 	}
 }
