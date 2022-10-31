@@ -1,5 +1,5 @@
-export default class CafeMenuController{
-  addMenuName() {
+export default class CafeMenuController {
+	addMenuName() {
 		const menuName = $('#menu-name').value
 		if (!menuName) {
 			alert('입력 없음')
