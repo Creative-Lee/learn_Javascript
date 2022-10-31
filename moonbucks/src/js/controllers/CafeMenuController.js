@@ -1,4 +1,14 @@
 export default class CafeMenuController {
+	constructor() {
+		this.cafeMenu = {
+			espresso: [],
+			frappuccino: [],
+			blended: [],
+			teavana: [],
+			desert: [],
+		}
+		this.currentMenuCategory = 'espresso'
+	}
 	addMenuName() {
 		const menuName = $('#menu-name').value
 		if (!menuName) {
