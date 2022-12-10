@@ -25,6 +25,34 @@ const MenuApi = {
 
     return response.json()
   },
+
+  async createMenu(category, name) {
+    const response = await request(`category/${category}/menu`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name }),
+    })
+
+    if (!response.ok) {
+      console.err('error')
+    }
+
+    return response.json()
+  },
+
+  async updateMenu(category, name, menuId) {
+    const response = await request(`category/${category}/menu/${menuId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name }),
+    })
+
+    if (!response.ok) {
+      console.err('error')
+    }
+
+    return response.json()
+  },
 }
 
 class App {
@@ -83,7 +111,7 @@ class App {
     const template = this.cafeMenu[this.currentMenuCategory]
       .map((menu, idx) => {
         return `
-				<li data-list-id='${idx}' class="menu-list-item d-flex items-center py-2">
+				<li data-list-id='${menu.id}' class="menu-list-item d-flex items-center py-2">
 				<span class="w-100 pl-2 menu-name ${menu.soldOut ? 'sold-out' : ''}">${menu.name}</span>
 				<button
 				type="button"
@@ -118,6 +146,8 @@ class App {
       return
     }
 
+    await MenuApi.createMenu(this.currentMenuCategory, menuName)
+
     const menuData = await MenuApi.getAllMenuByCategory(this.currentMenuCategory)
     this.cafeMenu[this.currentMenuCategory] = menuData
 
@@ -125,15 +155,18 @@ class App {
     $('#menu-name').value = ''
   }
 
-  updateMenuName(target) {
+  async updateMenuName(target) {
     const targetListId = target.closest('li').dataset.listId
     const updatedMenuName = prompt(
       '수정할 메뉴 이름을 입력하세요',
       target.closest('li').querySelector('.menu-name').innerText
     )
     if (updatedMenuName) {
-      this.cafeMenu[this.currentMenuCategory][targetListId].name = updatedMenuName
-      store.setLocalStorage(this.cafeMenu)
+      await MenuApi.updateMenu(this.currentMenuCategory, updatedMenuName, targetListId)
+
+      this.cafeMenu[this.currentMenuCategory] = await MenuApi.getAllMenuByCategory(
+        this.currentMenuCategory
+      )
       this.render()
     }
   }
@@ -155,12 +188,16 @@ class App {
     this.render()
   }
 
-  changeCategory(target) {
+  async changeCategory(target) {
     const isCategoryButton = target.classList.contains('cafe-category-name')
     if (isCategoryButton) {
       const categoryName = target.dataset.categoryName
       this.currentMenuCategory = categoryName
       $('#category-title').innerText = `${target.innerText} 메뉴 관리`
+
+      this.cafeMenu[this.currentMenuCategory] = await MenuApi.getAllMenuByCategory(
+        this.currentMenuCategory
+      )
       this.render()
     }
   }
