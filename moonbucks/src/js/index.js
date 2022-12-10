@@ -34,7 +34,7 @@ const MenuApi = {
     })
 
     if (!response.ok) {
-      console.err('error')
+      console.error('error')
     }
 
     return response.json()
@@ -48,7 +48,7 @@ const MenuApi = {
     })
 
     if (!response.ok) {
-      console.err('error')
+      console.error('error')
     }
 
     return response.json()
@@ -60,10 +60,18 @@ const MenuApi = {
     })
 
     if (!response.ok) {
-      console.err('error')
+      console.error('error')
     }
+  },
 
-    return response.json()
+  async deleteMenu(category, menuId) {
+    const response = await request(`category/${category}/menu/${menuId}`, {
+      method: 'DELETE',
+    })
+
+    if (!response.ok) {
+      console.error('error')
+    }
   },
 }
 
@@ -183,11 +191,14 @@ class App {
     }
   }
 
-  removeMenuName(target) {
+  async removeMenuName(target) {
     if (confirm('삭제할래요?')) {
       const targetListId = target.closest('li').dataset.listId
-      this.cafeMenu[this.currentMenuCategory].splice(targetListId, 1)
-      store.setLocalStorage(this.cafeMenu)
+
+      await MenuApi.deleteMenu(this.currentMenuCategory, targetListId)
+      const allMenuList = await MenuApi.getAllMenuByCategory(this.currentMenuCategory)
+      this.cafeMenu[this.currentMenuCategory] = allMenuList
+
       this.render()
     }
   }
