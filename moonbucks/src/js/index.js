@@ -1,6 +1,5 @@
 import { $ } from './utils/dom.js'
-import store from './store/index.js'
-import request from '../api/index.js'
+import MenuApi from './api/index.js'
 
 /*
 - [ ] [링크](https://github.com/blackcoffee-study/moonbucks-menu-server)에 있는 
@@ -18,62 +17,6 @@ import request from '../api/index.js'
   - [ ] API 통신이 실패하는 경우에 대해 사용자가 알 수 있게 [alert](https://developer.mozilla.org/ko/docs/Web/API/Window/alert)으로 예외처리를 진행한다.
 - [ ] 중복되는 메뉴는 추가할 수 없다.
 */
-
-const MenuApi = {
-  async getAllMenuByCategory(category) {
-    const response = await request(`category/${category}/menu`)
-
-    return response.json()
-  },
-
-  async createMenu(category, name) {
-    const response = await request(`category/${category}/menu`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name }),
-    })
-
-    if (!response.ok) {
-      console.error('error')
-    }
-
-    return response.json()
-  },
-
-  async updateMenu(category, name, menuId) {
-    const response = await request(`category/${category}/menu/${menuId}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name }),
-    })
-
-    if (!response.ok) {
-      console.error('error')
-    }
-
-    return response.json()
-  },
-
-  async toggleSoldoutMenu(category, menuId) {
-    const response = await request(`category/${category}/menu/${menuId}/soldout`, {
-      method: 'PUT',
-    })
-
-    if (!response.ok) {
-      console.error('error')
-    }
-  },
-
-  async deleteMenu(category, menuId) {
-    const response = await request(`category/${category}/menu/${menuId}`, {
-      method: 'DELETE',
-    })
-
-    if (!response.ok) {
-      console.error('error')
-    }
-  },
-}
 
 class App {
   constructor() {
@@ -127,9 +70,12 @@ class App {
     })
   }
 
-  render() {
+  async render() {
+    const data = await MenuApi.getAllMenuByCategory(this.currentMenuCategory)
+    this.cafeMenu[this.currentMenuCategory] = data
+
     const template = this.cafeMenu[this.currentMenuCategory]
-      .map((menu, idx) => {
+      .map(menu => {
         return `
 				<li data-list-id='${menu.id}' class="menu-list-item d-flex items-center py-2">
 				<span class="w-100 pl-2 menu-name ${menu.isSoldOut ? 'sold-out' : ''}">${menu.name}</span>
@@ -166,6 +112,15 @@ class App {
       return
     }
 
+    const duplicateItem = this.cafeMenu[this.currentMenuCategory].find(
+      item => item.name === menuName
+    )
+    if (duplicateItem) {
+      alert('중복된 메뉴 이름')
+      $('#menu-name').value = ''
+      return
+    }
+
     await MenuApi.createMenu(this.currentMenuCategory, menuName)
 
     const menuData = await MenuApi.getAllMenuByCategory(this.currentMenuCategory)
@@ -184,9 +139,6 @@ class App {
     if (updatedMenuName) {
       await MenuApi.updateMenu(this.currentMenuCategory, updatedMenuName, targetListId)
 
-      this.cafeMenu[this.currentMenuCategory] = await MenuApi.getAllMenuByCategory(
-        this.currentMenuCategory
-      )
       this.render()
     }
   }
@@ -196,8 +148,6 @@ class App {
       const targetListId = target.closest('li').dataset.listId
 
       await MenuApi.deleteMenu(this.currentMenuCategory, targetListId)
-      const allMenuList = await MenuApi.getAllMenuByCategory(this.currentMenuCategory)
-      this.cafeMenu[this.currentMenuCategory] = allMenuList
 
       this.render()
     }
@@ -207,10 +157,7 @@ class App {
     const targetMenuListId = target.closest('li').dataset.listId
 
     await MenuApi.toggleSoldoutMenu(this.currentMenuCategory, targetMenuListId)
-    const data = await MenuApi.getAllMenuByCategory(this.currentMenuCategory)
 
-    this.cafeMenu[this.currentMenuCategory] = data
-    console.log(this.cafeMenu[this.currentMenuCategory])
     this.render()
   }
 
@@ -221,9 +168,6 @@ class App {
       this.currentMenuCategory = categoryName
       $('#category-title').innerText = `${target.innerText} 메뉴 관리`
 
-      this.cafeMenu[this.currentMenuCategory] = await MenuApi.getAllMenuByCategory(
-        this.currentMenuCategory
-      )
       this.render()
     }
   }
