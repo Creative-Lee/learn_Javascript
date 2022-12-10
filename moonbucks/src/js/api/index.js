@@ -1,62 +1,70 @@
 const BASE_URL = 'http://localhost:3000/api'
 
-function request(url, option = {}) {
-  return fetch(`${BASE_URL}/${url}`, option)
+async function request(url, option = {}) {
+  const response = await fetch(`${BASE_URL}/${url}`, option)
+
+  if (!response.ok) {
+    console.error('error')
+  }
+
+  return response.json()
+}
+
+async function requestWithoutJson(url, option = {}) {
+  const response = await fetch(`${BASE_URL}/${url}`, option)
+
+  if (!response.ok) {
+    console.error('error')
+  }
+
+  return response
+}
+
+const HTTP_METHOD = {
+  POST(data) {
+    return {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }
+  },
+
+  PUT(data) {
+    return {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: data ? JSON.stringify(data) : null,
+    }
+  },
+
+  DELETE() {
+    return {
+      method: 'DELETE',
+    }
+  },
 }
 
 const MenuApi = {
   async getAllMenuByCategory(category) {
-    const response = await request(`category/${category}/menu`)
-
-    return response.json()
+    return request(`category/${category}/menu`)
   },
 
   async createMenu(category, name) {
-    const response = await request(`category/${category}/menu`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name }),
-    })
-
-    if (!response.ok) {
-      console.error('error')
-    }
-
-    return response.json()
+    return request(`category/${category}/menu`, HTTP_METHOD.POST({ name }))
   },
 
   async updateMenu(category, name, menuId) {
-    const response = await request(`category/${category}/menu/${menuId}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name }),
-    })
-
-    if (!response.ok) {
-      console.error('error')
-    }
-
-    return response.json()
+    return request(`category/${category}/menu/${menuId}`, HTTP_METHOD.PUT({ name }))
   },
 
   async toggleSoldoutMenu(category, menuId) {
-    const response = await request(`category/${category}/menu/${menuId}/soldout`, {
-      method: 'PUT',
-    })
-
-    if (!response.ok) {
-      console.error('error')
-    }
+    return request(`category/${category}/menu/${menuId}/soldout`, HTTP_METHOD.PUT())
   },
 
   async deleteMenu(category, menuId) {
-    const response = await request(`category/${category}/menu/${menuId}`, {
-      method: 'DELETE',
-    })
-
-    if (!response.ok) {
-      console.error('error')
-    }
+    return requestWithoutJson(`category/${category}/menu/${menuId}`, HTTP_METHOD.DELETE())
   },
 }
 

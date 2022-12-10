@@ -32,9 +32,6 @@ class App {
   }
 
   async init() {
-    this.cafeMenu[this.currentMenuCategory] = await MenuApi.getAllMenuByCategory(
-      this.currentMenuCategory
-    )
     this.render()
     this.initEventListeners()
   }
@@ -101,6 +98,7 @@ class App {
       })
       .join('')
     $('#menu-list').innerHTML = template
+
     const menuCount = this.cafeMenu[this.currentMenuCategory].length
     $('.menu-count').innerText = `총 ${menuCount}개`
   }
@@ -122,9 +120,6 @@ class App {
     }
 
     await MenuApi.createMenu(this.currentMenuCategory, menuName)
-
-    const menuData = await MenuApi.getAllMenuByCategory(this.currentMenuCategory)
-    this.cafeMenu[this.currentMenuCategory] = menuData
 
     this.render()
     $('#menu-name').value = ''
@@ -161,7 +156,7 @@ class App {
     this.render()
   }
 
-  async changeCategory(target) {
+  changeCategory(target) {
     const isCategoryButton = target.classList.contains('cafe-category-name')
     if (isCategoryButton) {
       const categoryName = target.dataset.categoryName
