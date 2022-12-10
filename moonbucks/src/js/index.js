@@ -53,6 +53,18 @@ const MenuApi = {
 
     return response.json()
   },
+
+  async toggleSoldoutMenu(category, menuId) {
+    const response = await request(`category/${category}/menu/${menuId}/soldout`, {
+      method: 'PUT',
+    })
+
+    if (!response.ok) {
+      console.err('error')
+    }
+
+    return response.json()
+  },
 }
 
 class App {
@@ -112,7 +124,7 @@ class App {
       .map((menu, idx) => {
         return `
 				<li data-list-id='${menu.id}' class="menu-list-item d-flex items-center py-2">
-				<span class="w-100 pl-2 menu-name ${menu.soldOut ? 'sold-out' : ''}">${menu.name}</span>
+				<span class="w-100 pl-2 menu-name ${menu.isSoldOut ? 'sold-out' : ''}">${menu.name}</span>
 				<button
 				type="button"
 				class="bg-gray-50 text-gray-500 text-sm mr-1 menu-sold-out-button"
@@ -180,11 +192,14 @@ class App {
     }
   }
 
-  toggleSoldout(target) {
+  async toggleSoldout(target) {
     const targetMenuListId = target.closest('li').dataset.listId
-    this.cafeMenu[this.currentMenuCategory][targetMenuListId].soldOut =
-      !this.cafeMenu[this.currentMenuCategory][targetMenuListId].soldOut
-    store.setLocalStorage(this.cafeMenu)
+
+    await MenuApi.toggleSoldoutMenu(this.currentMenuCategory, targetMenuListId)
+    const data = await MenuApi.getAllMenuByCategory(this.currentMenuCategory)
+
+    this.cafeMenu[this.currentMenuCategory] = data
+    console.log(this.cafeMenu[this.currentMenuCategory])
     this.render()
   }
 
